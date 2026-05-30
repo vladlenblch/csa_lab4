@@ -1,0 +1,37 @@
+# Local reference materials
+example/
+task.md
+another_good_example.md
+schemes/description.md
+
+# OS and editor files
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Python caches and virtual environments
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+env/
+
+# Build and generated artifacts
+build/
+dist/
+out/
+target/
+*.egg-info/
+
+# Generated machine artifacts
+*.bin
+*.hex
+*.log

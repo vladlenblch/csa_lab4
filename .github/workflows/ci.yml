@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install quality tools
+        run: python -m pip install ruff mypy
+
+      - name: Lint
+        run: |
+          ruff check .
+          ruff format --check .
+          mypy
+
+      - name: Compile
+        run: |
+          python -m compileall \
+            isa.py translator.py machine.py \
+            golden/test_golden.py
+
+      - name: Test
+        run: python -m unittest discover -s golden -v
