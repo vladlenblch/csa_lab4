@@ -1,0 +1,66 @@
+in_source: |-
+  variable factor
+  
+  : main
+      4 factor store
+      5 addm factor
+      48 + write-char
+  ;
+  
+in_stdin: |-
+in_limit: 10000
+out_code: !!binary |
+  HQABAB4AAAAEHgAAAAEGHgAAAAUaAAEeAAAAMAcZ/wIP
+out_code_hex: |-
+  0 - 1D0001 - CALL 1
+  3 - 00 - HALT
+  4 - 1E00000004 - PUSHI32 4
+  9 - 1E00000001 - PUSHI32 1
+  14 - 06 - STORE
+  15 - 1E00000005 - PUSHI32 5
+  20 - 1A0001 - ADDM 0x0001
+  23 - 1E00000030 - PUSHI32 48
+  28 - 07 - ADD
+  29 - 19FF02 - STOREA 0xFF02
+  32 - 0F - RET
+out_data: !!binary |
+  AAAAAAAAAAA=
+out_data_hex: |-
+  0 - 00000000 - 0
+  1 - 00000000 - 0
+out_interrupts: |
+out_stdout: |
+  9
+  ticks: 31
+out_log: |
+  tick=00001 state=FETCH_OPCODE         pc=0001 ir=CALL      arg=          0 tos=          0 nos=          0 sp=CFFF rp=DFFF flags=zncvieint mode=main      input=-- instr_addr=0
+  tick=00002 state=FETCH_ARGUMENT       pc=0003 ir=CALL      arg=          1 tos=          0 nos=          0 sp=CFFF rp=DFFF flags=zncvieint mode=main      input=-- CALL 1
+  tick=00003 state=EXECUTE              pc=0004 ir=CALL      arg=          1 tos=          0 nos=          0 sp=CFFF rp=E000 flags=zncvieint mode=main      input=-- CALL
+  tick=00004 state=FETCH_OPCODE         pc=0005 ir=PUSHI32   arg=          0 tos=          0 nos=          0 sp=CFFF rp=E000 flags=zncvieint mode=main      input=-- instr_addr=4
+  tick=00005 state=FETCH_ARGUMENT       pc=0009 ir=PUSHI32   arg=          4 tos=          0 nos=          0 sp=CFFF rp=E000 flags=zncvieint mode=main      input=-- PUSHI32 4
+  tick=00006 state=EXECUTE              pc=0009 ir=PUSHI32   arg=          4 tos=          4 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- PUSHI32
+  tick=00007 state=FETCH_OPCODE         pc=000A ir=PUSHI32   arg=          0 tos=          4 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- instr_addr=9
+  tick=00008 state=FETCH_ARGUMENT       pc=000E ir=PUSHI32   arg=          1 tos=          4 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- PUSHI32 1
+  tick=00009 state=EXECUTE              pc=000E ir=PUSHI32   arg=          1 tos=          1 nos=          4 sp=D001 rp=E000 flags=zncvieint mode=main      input=-- PUSHI32
+  tick=00010 state=FETCH_OPCODE         pc=000F ir=STORE     arg=          0 tos=          1 nos=          4 sp=D001 rp=E000 flags=zncvieint mode=main      input=-- instr_addr=14
+  tick=00011 state=EXECUTE              pc=000F ir=STORE     arg=          0 tos=          0 nos=          0 sp=CFFF rp=E000 flags=zncvieint mode=main      input=-- STORE
+  tick=00012 state=FETCH_OPCODE         pc=0010 ir=PUSHI32   arg=          0 tos=          0 nos=          0 sp=CFFF rp=E000 flags=zncvieint mode=main      input=-- instr_addr=15
+  tick=00013 state=FETCH_ARGUMENT       pc=0014 ir=PUSHI32   arg=          5 tos=          0 nos=          0 sp=CFFF rp=E000 flags=zncvieint mode=main      input=-- PUSHI32 5
+  tick=00014 state=EXECUTE              pc=0014 ir=PUSHI32   arg=          5 tos=          5 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- PUSHI32
+  tick=00015 state=FETCH_OPCODE         pc=0015 ir=ADDM      arg=          0 tos=          5 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- instr_addr=20
+  tick=00016 state=FETCH_ARGUMENT       pc=0017 ir=ADDM      arg=          1 tos=          5 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- ADDM 0x0001
+  tick=00017 state=MEM_READ             pc=0017 ir=ADDM      arg=          1 tos=          5 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- addr=1
+  tick=00018 state=EXECUTE              pc=0017 ir=ADDM      arg=          1 tos=          9 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- ADDM
+  tick=00019 state=FETCH_OPCODE         pc=0018 ir=PUSHI32   arg=          0 tos=          9 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- instr_addr=23
+  tick=00020 state=FETCH_ARGUMENT       pc=001C ir=PUSHI32   arg=         48 tos=          9 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- PUSHI32 48
+  tick=00021 state=EXECUTE              pc=001C ir=PUSHI32   arg=         48 tos=         48 nos=          9 sp=D001 rp=E000 flags=zncvieint mode=main      input=-- PUSHI32
+  tick=00022 state=FETCH_OPCODE         pc=001D ir=ADD       arg=          0 tos=         48 nos=          9 sp=D001 rp=E000 flags=zncvieint mode=main      input=-- instr_addr=28
+  tick=00023 state=EXECUTE              pc=001D ir=ADD       arg=          0 tos=         57 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- ADD
+  tick=00024 state=FETCH_OPCODE         pc=001E ir=STOREA    arg=          0 tos=         57 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- instr_addr=29
+  tick=00025 state=FETCH_ARGUMENT       pc=0020 ir=STOREA    arg=      65282 tos=         57 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- STOREA 0xFF02
+  tick=00026 state=EXECUTE              pc=0020 ir=STOREA    arg=      65282 tos=          0 nos=          0 sp=CFFF rp=E000 flags=zncvieint mode=main      input=-- STOREA
+  tick=00027 state=FETCH_OPCODE         pc=0021 ir=RET       arg=          0 tos=          0 nos=          0 sp=CFFF rp=E000 flags=zncvieint mode=main      input=-- instr_addr=32
+  tick=00028 state=MEM_READ             pc=0021 ir=RET       arg=          0 tos=          0 nos=          0 sp=CFFF rp=E000 flags=zncvieint mode=main      input=-- rp=E000
+  tick=00029 state=EXECUTE              pc=0003 ir=RET       arg=          0 tos=          0 nos=          0 sp=CFFF rp=DFFF flags=zncvieint mode=main      input=-- RET
+  tick=00030 state=FETCH_OPCODE         pc=0004 ir=HALT      arg=          0 tos=          0 nos=          0 sp=CFFF rp=DFFF flags=zncvieint mode=main      input=-- instr_addr=3
+  tick=00031 state=EXECUTE              pc=0004 ir=HALT      arg=          0 tos=          0 nos=          0 sp=CFFF rp=DFFF flags=zncvieint mode=main      input=-- HALT

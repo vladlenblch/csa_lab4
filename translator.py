@@ -266,6 +266,9 @@ class Translator:
             if value == "pushn":
                 pos = self._compile_pushn(tokens, pos + 1)
                 continue
+            if value == "addm":
+                pos = self._compile_addm(tokens, pos + 1)
+                continue
 
             self._compile_word(value, token)
             pos += 1
@@ -309,6 +312,20 @@ class Translator:
 
         self.emit(isa.pushn(values))
         return pos + 1 + count
+
+    def _compile_addm(self, tokens, pos):
+        token = _require_token(tokens, pos, "addm address")
+        value = token["value"]
+        if is_integer(value):
+            address = int(value)
+        elif value in self.variables:
+            address = self.variables[value]
+        elif value in self.constants:
+            address = self.constants[value]
+        else:
+            raise TranslationError("addm address must be integer, constant, or variable name")
+        self.emit(isa.u16(Opcode.ADDM, address))
+        return pos + 1
 
     def _compile_if(self, tokens, pos):
         false_label = self.new_label("if_false")

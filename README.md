@@ -50,6 +50,7 @@ statement            ::= literal
                        | word
                        | xt-literal
                        | pushn-literal
+                       | addm-literal
                        | if-statement
                        | begin-loop
                        | counted-loop
@@ -60,6 +61,7 @@ counted-loop         ::= "do" statement* "loop"
 
 xt-literal           ::= "'" identifier
 pushn-literal        ::= "pushn" integer integer*
+addm-literal         ::= "addm" (identifier | integer)
 word                 ::= identifier | builtin-symbol
 literal              ::= integer
 integer              ::= ["-"] digit+
@@ -123,6 +125,7 @@ Execution token:
 | Слово | Стековый эффект | Назначение |
 |:------|:----------------|:-----------|
 | `+` | `a b -- sum` | Сложение |
+| `addm name` | `a -- sum` | Сложить вершину стека со словом памяти данных по статическому адресу |
 | `-` | `a b -- diff` | Вычитание |
 | `*` | `a b -- prod` | Умножение |
 | `/` | `a b -- quot` | Целочисленное деление |
@@ -379,18 +382,18 @@ python3 translator.py program.fth build/program.bin
 Сгенерированный dump command memory:
 
 ```text
-0 - 21000B - CALL 11
+0 - 1D000B - CALL 11
 3 - 00 - HALT
 4 - 01 - DUP
 5 - 09 - MUL
-6 - 12 - RET
-7 - 2200000001 - PUSHI32 1
+6 - 0F - RET
+7 - 1E00000001 - PUSHI32 1
 12 - 07 - ADD
-13 - 12 - RET
-14 - 2200000005 - PUSHI32 5
-19 - 21FFEE - CALL -18
-22 - 21FFEE - CALL -18
-25 - 12 - RET
+13 - 0F - RET
+14 - 1E00000005 - PUSHI32 5
+19 - 1DFFEE - CALL -18
+22 - 1DFFEE - CALL -18
+25 - 0F - RET
 ```
 
 Полученные метки:
@@ -413,6 +416,7 @@ Golden-кейсы лежат в каталоге [`golden`](./golden).
 
 | Кейс | Что проверяет |
 | --- | --- |
+| [`addm.yml`](./golden/addm.yml) | CISC-инструкцию `ADDM`: арифметика со словом data memory |
 | [`cat_interrupt.yml`](./golden/cat_interrupt.yml) | trap-ввод и обработчик `:interrupt` |
 | [`double_precision.yml`](./golden/double_precision.yml) | 64-битное сложение пары `hi32:lo32` |
 | [`execution_token.yml`](./golden/execution_token.yml) | execution token и косвенный вызов через `execute` |
