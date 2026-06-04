@@ -225,7 +225,7 @@ Data memory, 32-bit cells
 | Адрес | Назначение |
 | --- | --- |
 | `0xFF00` | входной символ |
-| `0xFF01` | статус входа (`ready`) |
+| `0xFF01` | статус входа |
 | `0xFF02` | выходной символ |
 | `0xFF04` | подтверждение входного прерывания |
 
@@ -411,25 +411,7 @@ word:main   = 14
 python3 -m unittest test_golden -v
 ```
 
-Golden-кейсы лежат в каталоге [`golden`](./golden). Каждый кейс хранится в одном YAML-файле:
-
-- `in_source` -- исходный Forth-код;
-- `in_stdin` -- входное расписание trap-токенов;
-- `in_limit` -- лимит тактов моделирования;
-- `out_code` -- бинарный образ command memory;
-- `out_code_hex` -- dump command memory;
-- `out_data` -- бинарный образ data memory;
-- `out_data_hex` -- dump data memory;
-- `out_interrupts` -- адреса обработчиков `:interrupt`;
-- `out_stdout` -- вывод `machine.py` и число тактов;
-- `out_log` -- первые 100 и последние 100 строк тактового журнала.
-
-Тест [`test_golden.py`](./test_golden.py) для каждого кейса запускает CLI-пайплайн:
-
-```bash
-python3 translator.py source.fth program.bin
-python3 machine.py program.bin program.data.bin input.schedule <limit>
-```
+Golden-кейсы лежат в каталоге [`golden`](./golden). 
 
 | Кейс | Что проверяет |
 | --- | --- |
