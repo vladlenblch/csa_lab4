@@ -5,26 +5,24 @@ in_source: |-
       48 + write-char
   ;
 in_stdin: |-
-
 in_limit: 10000
 out_code: !!binary |
-  IQABACMDAAAAAQAAAAIAAAADBwciAAAAMAcc/wIS
+  HQABAB8DAAAAAQAAAAIAAAADBwceAAAAMAcZ/wIP
 out_code_hex: |-
-  0 - 210001 - CALL 1
+  0 - 1D0001 - CALL 1
   3 - 00 - HALT
-  4 - 2303000000010000000200000003 - PUSHN 1 2 3
+  4 - 1F03000000010000000200000003 - PUSHN 1 2 3
   18 - 07 - ADD
   19 - 07 - ADD
-  20 - 2200000030 - PUSHI32 48
+  20 - 1E00000030 - PUSHI32 48
   25 - 07 - ADD
-  26 - 1CFF02 - STOREA 0xFF02
-  29 - 12 - RET
+  26 - 19FF02 - STOREA 0xFF02
+  29 - 0F - RET
 out_data: !!binary |
   AAAAAA==
 out_data_hex: |-
   0 - 00000000 - 0
 out_interrupts: |
-
 out_stdout: |
   6
   ticks: 29

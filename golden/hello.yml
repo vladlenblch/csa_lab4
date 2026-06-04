@@ -11,54 +11,53 @@ in_source: |-
       s"Hello, World!" type-pstr
   ;
 in_stdin: |-
-
 in_limit: 10000
 out_code: !!binary |
-  IQA8AAEFAyIAAAABBwMiAAAAAAQEAw0gACEDFBQBFgcFHP8CFSIAAAABBwEWDSAABBQf/+gCFQIf
-  AAICAgISIgAAAAEh/70S
+  HQA8AAEFAx4AAAABBwMeAAAAAAQEAw0cACEDEREBEwcFGf8CEh4AAAABBwETDRwABBEb/+gCEgIb
+  AAICAgIPHgAAAAEd/70P
 out_code_hex: |-
-  0 - 21003C - CALL 60
+  0 - 1D003C - CALL 60
   3 - 00 - HALT
   4 - 01 - DUP
   5 - 05 - LOAD
   6 - 03 - SWAP
-  7 - 2200000001 - PUSHI32 1
+  7 - 1E00000001 - PUSHI32 1
   12 - 07 - ADD
   13 - 03 - SWAP
-  14 - 2200000000 - PUSHI32 0
+  14 - 1E00000000 - PUSHI32 0
   19 - 04 - OVER
   20 - 04 - OVER
   21 - 03 - SWAP
   22 - 0D - LT
-  23 - 200021 - JZ 33
+  23 - 1C0021 - JZ 33
   26 - 03 - SWAP
-  27 - 14 - TOR
-  28 - 14 - TOR
+  27 - 11 - TOR
+  28 - 11 - TOR
   29 - 01 - DUP
-  30 - 16 - RPEEK
+  30 - 13 - RPEEK
   31 - 07 - ADD
   32 - 05 - LOAD
-  33 - 1CFF02 - STOREA 0xFF02
-  36 - 15 - FROMR
-  37 - 2200000001 - PUSHI32 1
+  33 - 19FF02 - STOREA 0xFF02
+  36 - 12 - FROMR
+  37 - 1E00000001 - PUSHI32 1
   42 - 07 - ADD
   43 - 01 - DUP
-  44 - 16 - RPEEK
+  44 - 13 - RPEEK
   45 - 0D - LT
-  46 - 200004 - JZ 4
-  49 - 14 - TOR
-  50 - 1FFFE8 - JMP -24
+  46 - 1C0004 - JZ 4
+  49 - 11 - TOR
+  50 - 1BFFE8 - JMP -24
   53 - 02 - DROP
-  54 - 15 - FROMR
+  54 - 12 - FROMR
   55 - 02 - DROP
-  56 - 1F0002 - JMP 2
+  56 - 1B0002 - JMP 2
   59 - 02 - DROP
   60 - 02 - DROP
   61 - 02 - DROP
-  62 - 12 - RET
-  63 - 2200000001 - PUSHI32 1
-  68 - 21FFBD - CALL -67
-  71 - 12 - RET
+  62 - 0F - RET
+  63 - 1E00000001 - PUSHI32 1
+  68 - 1DFFBD - CALL -67
+  71 - 0F - RET
 out_data: !!binary |
   AAAAAAAAAA0AAABIAAAAZQAAAGwAAABsAAAAbwAAACwAAAAgAAAAVwAAAG8AAAByAAAAbAAAAGQA
   AAAh
@@ -79,7 +78,6 @@ out_data_hex: |-
   13 - 00000064 - 100
   14 - 00000021 - 33
 out_interrupts: |
-
 out_stdout: |
   Hello, World!
   ticks: 526

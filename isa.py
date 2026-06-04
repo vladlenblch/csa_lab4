@@ -1,4 +1,3 @@
-from collections import namedtuple
 from enum import IntEnum
 
 COMMAND_MEMORY_SIZE = 1 << 16
@@ -31,27 +30,23 @@ class Opcode(IntEnum):
     EQ = 0x0C
     LT = 0x0D
     GT = 0x0E
-    AND = 0x0F
-    OR = 0x10
-    NOT = 0x11
-    RET = 0x12
-    CALLXT = 0x13
-    TOR = 0x14
-    FROMR = 0x15
-    RPEEK = 0x16
-    EI = 0x17
-    DI = 0x18
-    IRET = 0x19
-    GET_CARRY = 0x1A
-    LOADA = 0x1B
-    STOREA = 0x1C
-    ADDM = 0x1D
-    MULM = 0x1E
-    JMP = 0x1F
-    JZ = 0x20
-    CALL = 0x21
-    PUSHI32 = 0x22
-    PUSHN = 0x23
+    RET = 0x0F
+    CALLXT = 0x10
+    TOR = 0x11
+    FROMR = 0x12
+    RPEEK = 0x13
+    EI = 0x14
+    DI = 0x15
+    IRET = 0x16
+    GET_CARRY = 0x17
+    LOADA = 0x18
+    STOREA = 0x19
+    ADDM = 0x1A
+    JMP = 0x1B
+    JZ = 0x1C
+    CALL = 0x1D
+    PUSHI32 = 0x1E
+    PUSHN = 0x1F
 
     @property
     def mnemonic(self):
@@ -64,10 +59,6 @@ class Opcode(IntEnum):
             return cls[normalized]
         except KeyError as exc:
             raise ValueError(f"unknown opcode mnemonic: {mnemonic}") from exc
-
-
-class Term(namedtuple("Term", "line pos symbol")):
-    pass
 
 
 opcode_to_format = {
@@ -86,9 +77,6 @@ opcode_to_format = {
     Opcode.EQ: FORMAT_OP,
     Opcode.LT: FORMAT_OP,
     Opcode.GT: FORMAT_OP,
-    Opcode.AND: FORMAT_OP,
-    Opcode.OR: FORMAT_OP,
-    Opcode.NOT: FORMAT_OP,
     Opcode.RET: FORMAT_OP,
     Opcode.CALLXT: FORMAT_OP,
     Opcode.TOR: FORMAT_OP,
@@ -101,7 +89,6 @@ opcode_to_format = {
     Opcode.LOADA: FORMAT_U16,
     Opcode.STOREA: FORMAT_U16,
     Opcode.ADDM: FORMAT_U16,
-    Opcode.MULM: FORMAT_U16,
     Opcode.JMP: FORMAT_I16,
     Opcode.JZ: FORMAT_I16,
     Opcode.CALL: FORMAT_I16,
@@ -125,34 +112,32 @@ def instruction_format(opcode):
     return opcode_to_format[_normalize_opcode(opcode)]
 
 
-def op(opcode, term=None):
-    return _instruction(opcode, term=term)
+def op(opcode):
+    return _instruction(opcode)
 
 
-def u16(opcode, arg, term=None):
-    return _instruction(opcode, arg=arg, term=term)
+def u16(opcode, arg):
+    return _instruction(opcode, arg=arg)
 
 
-def i16(opcode, arg, term=None):
-    return _instruction(opcode, arg=arg, term=term)
+def i16(opcode, arg):
+    return _instruction(opcode, arg=arg)
 
 
-def i32(opcode, arg, term=None):
-    return _instruction(opcode, arg=arg, term=term)
+def i32(opcode, arg):
+    return _instruction(opcode, arg=arg)
 
 
-def pushn(values, term=None):
-    return _instruction(Opcode.PUSHN, values=tuple(values), term=term)
+def pushn(values):
+    return _instruction(Opcode.PUSHN, values=tuple(values))
 
 
-def _instruction(opcode, arg=None, values=(), term=None):
+def _instruction(opcode, arg=None, values=()):
     instruction = {"opcode": _normalize_opcode(opcode)}
     if arg is not None:
         instruction["arg"] = arg
     if values:
         instruction["values"] = tuple(values)
-    if term is not None:
-        instruction["term"] = term
     return instruction
 
 
@@ -318,10 +303,6 @@ def code_size(code):
 
 def relative_offset(source_address, instruction_size, target_address):
     return target_address - (source_address + instruction_size)
-
-
-def branch_target(source_address, instruction_size, rel16):
-    return source_address + instruction_size + rel16
 
 
 def instruction_to_hex(instruction):

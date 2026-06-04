@@ -33,7 +33,6 @@ def tokenize(text):
                 pos += 1
                 continue
             if char == "s" and pos + 1 < len(line) and line[pos + 1] == '"':
-                start = pos
                 pos += 2
                 value = []
                 while pos < len(line) and line[pos] != '"':
@@ -45,7 +44,6 @@ def tokenize(text):
                     {
                         "kind": "string",
                         "value": "".join(value),
-                        "term": isa.Term(line_num, start + 1, 's"..."'),
                     }
                 )
                 pos += 1
@@ -59,7 +57,6 @@ def tokenize(text):
                 {
                     "kind": "word",
                     "value": value,
-                    "term": isa.Term(line_num, start + 1, value),
                 }
             )
     return tokens
@@ -250,7 +247,7 @@ class Translator:
                 continue
 
             if is_integer(value):
-                self.emit(isa.i32(Opcode.PUSHI32, int(value), term=token["term"]))
+                self.emit(isa.i32(Opcode.PUSHI32, int(value)))
                 pos += 1
                 continue
 
@@ -267,7 +264,7 @@ class Translator:
                 pos = self._compile_execution_token(tokens, pos + 1)
                 continue
             if value == "pushn":
-                pos = self._compile_pushn(tokens, pos + 1, token["term"])
+                pos = self._compile_pushn(tokens, pos + 1)
                 continue
 
             self._compile_word(value, token)
@@ -284,7 +281,7 @@ class Translator:
         self.data.append(len(text))
         for char in text:
             self.data.append(ord(char))
-        self.emit(isa.i32(Opcode.PUSHI32, address, term=token["term"]))
+        self.emit(isa.i32(Opcode.PUSHI32, address))
 
     def _compile_execution_token(self, tokens, pos):
         token = _require_token(tokens, pos, "word after execution-token quote")
@@ -294,7 +291,7 @@ class Translator:
         self.emit_address(self.word_labels[name])
         return pos + 1
 
-    def _compile_pushn(self, tokens, pos, term):
+    def _compile_pushn(self, tokens, pos):
         count_token = _require_token(tokens, pos, "pushn count")
         if not is_integer(count_token["value"]):
             raise TranslationError("pushn count must be integer")
@@ -310,7 +307,7 @@ class Translator:
                 raise TranslationError("pushn value must be integer")
             values.append(int(value_token["value"]))
 
-        self.emit(isa.pushn(values, term=term))
+        self.emit(isa.pushn(values))
         return pos + 1 + count
 
     def _compile_if(self, tokens, pos):
@@ -389,18 +386,18 @@ class Translator:
 
     def _compile_word(self, word, token):
         if word in self.constants:
-            self.emit(isa.i32(Opcode.PUSHI32, self.constants[word], term=token["term"]))
+            self.emit(isa.i32(Opcode.PUSHI32, self.constants[word]))
             return
         if word in self.variables:
-            self.emit(isa.i32(Opcode.PUSHI32, self.variables[word], term=token["term"]))
+            self.emit(isa.i32(Opcode.PUSHI32, self.variables[word]))
             return
-        if self._compile_builtin(word, token):
+        if self._compile_builtin(word):
             return
         if word not in self.word_labels:
             self.word_labels[word] = self._word_label(word)
         self.emit_call(self.word_labels[word])
 
-    def _compile_builtin(self, word, token):
+    def _compile_builtin(self, word):
         direct = {
             "+": Opcode.ADD,
             "-": Opcode.SUB,
@@ -410,9 +407,6 @@ class Translator:
             "=": Opcode.EQ,
             "<": Opcode.LT,
             ">": Opcode.GT,
-            "and": Opcode.AND,
-            "or": Opcode.OR,
-            "not": Opcode.NOT,
             "dup": Opcode.DUP,
             "drop": Opcode.DROP,
             "swap": Opcode.SWAP,
@@ -424,24 +418,20 @@ class Translator:
             "i": Opcode.RPEEK,
             "ei": Opcode.EI,
             "di": Opcode.DI,
-            "iret": Opcode.IRET,
             "get-carry": Opcode.GET_CARRY,
-            "tor": Opcode.TOR,
-            "fromr": Opcode.FROMR,
-            "rpeek": Opcode.RPEEK,
         }
 
         if word in direct:
-            self.emit(isa.op(direct[word], term=token["term"]))
+            self.emit(isa.op(direct[word]))
             return True
         if word == "read-char":
-            self.emit(isa.u16(Opcode.LOADA, INPUT_CHAR_ADDR, term=token["term"]))
+            self.emit(isa.u16(Opcode.LOADA, INPUT_CHAR_ADDR))
             return True
         if word == "input-ready?":
-            self.emit(isa.u16(Opcode.LOADA, INPUT_READY_ADDR, term=token["term"]))
+            self.emit(isa.u16(Opcode.LOADA, INPUT_READY_ADDR))
             return True
         if word == "write-char":
-            self.emit(isa.u16(Opcode.STOREA, OUTPUT_CHAR_ADDR, term=token["term"]))
+            self.emit(isa.u16(Opcode.STOREA, OUTPUT_CHAR_ADDR))
             return True
         return False
 

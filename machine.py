@@ -143,21 +143,11 @@ class DataPath:
         self._push_data(result)
         self.signal_latch_flags(result, carry, overflow)
 
-    def signal_stack_unary_alu(self, alu_op):
-        a = self._pop_data()
-        result, carry, overflow = self.signal_alu(alu_op, a)
-        self.alu_result = result
-        self._push_data(result)
-        self.signal_latch_flags(result, carry, overflow)
-
     def signal_return_push(self, value):
         self._push_return(value)
 
     def signal_return_pop(self):
         return self._pop_return()
-
-    def signal_return_peek(self):
-        return self._peek_return()
 
     def signal_return_read(self):
         self.read_data = isa.word_to_signed(self._peek_return())
@@ -166,12 +156,6 @@ class DataPath:
     def signal_data_to_return(self):
         self._push_return(self._pop_data())
 
-    def signal_return_to_data(self):
-        self._push_data(self._pop_return())
-
-    def signal_return_peek_to_data(self):
-        self._push_data(self._peek_return())
-
     def signal_mem_read(self, address):
         self.read_data = isa.word_to_signed(self._read_data_memory_or_mmio(address))
         return self.read_data
@@ -179,17 +163,8 @@ class DataPath:
     def signal_mem_write(self, address, value):
         self._write_data_memory_or_mmio(address, value)
 
-    def signal_load(self):
-        address = self.tos
-        value = self.signal_mem_read(address)
-        self.signal_stack_replace_tos(value)
-
     def signal_load_writeback(self):
         self.signal_stack_replace_tos(self.read_data)
-
-    def signal_loada(self, address):
-        value = self.signal_mem_read(address)
-        self.signal_stack_push(value)
 
     def signal_loada_writeback(self):
         self.signal_stack_push(self.read_data)
@@ -203,14 +178,6 @@ class DataPath:
     def signal_storea(self, address):
         self.signal_mem_write(address, self.tos)
         self.signal_stack_drop()
-
-    def signal_memory_alu(self, alu_op, address):
-        mem_value = self.signal_mem_read(address)
-        a = self._pop_data()
-        result, carry, overflow = self.signal_alu(alu_op, a, mem_value)
-        self.alu_result = result
-        self._push_data(result)
-        self.signal_latch_flags(result, carry, overflow)
 
     def signal_memory_alu_writeback(self, alu_op):
         a = self._pop_data()
@@ -280,14 +247,6 @@ class DataPath:
         elif alu_op is Opcode.GT:
             self._require_binary_operand(alu_op, b)
             result = 1 if a > b else 0
-        elif alu_op is Opcode.AND:
-            self._require_binary_operand(alu_op, b)
-            result = 1 if a != 0 and b != 0 else 0
-        elif alu_op is Opcode.OR:
-            self._require_binary_operand(alu_op, b)
-            result = 1 if a != 0 or b != 0 else 0
-        elif alu_op is Opcode.NOT:
-            result = 0 if a != 0 else 1
         else:
             raise MachineError(f"unsupported ALU op: {alu_op.mnemonic}")
 
@@ -479,7 +438,7 @@ class ControlUnit:
             self.state = WRITEBACK
             self.tick(MEM_READ, f"addr={self.data_path.tos}")
             return
-        if opcode in {Opcode.LOADA, Opcode.ADDM, Opcode.MULM}:
+        if opcode in {Opcode.LOADA, Opcode.ADDM}:
             self.data_path.signal_mem_read(self.arg)
             self.state = WRITEBACK
             self.tick(MEM_READ, f"addr={self.arg}")
@@ -503,9 +462,6 @@ class ControlUnit:
             self.data_path.signal_loada_writeback()
         elif opcode is Opcode.ADDM:
             self.data_path.signal_memory_alu_writeback(Opcode.ADD)
-            stage = EXECUTE
-        elif opcode is Opcode.MULM:
-            self.data_path.signal_memory_alu_writeback(Opcode.MUL)
             stage = EXECUTE
         elif opcode is Opcode.RET:
             ret_addr = self.data_path.read_data
@@ -552,12 +508,8 @@ class ControlUnit:
             Opcode.EQ,
             Opcode.LT,
             Opcode.GT,
-            Opcode.AND,
-            Opcode.OR,
         }:
             self.data_path.signal_stack_binary_alu(opcode)
-        elif opcode is Opcode.NOT:
-            self.data_path.signal_stack_unary_alu(opcode)
         elif opcode is Opcode.DUP:
             self.data_path.signal_stack_push(self.data_path.tos)
         elif opcode is Opcode.DROP:
@@ -579,10 +531,6 @@ class ControlUnit:
         elif opcode is Opcode.STOREA:
             self.data_path.signal_storea(self.arg)
         elif opcode is Opcode.ADDM:
-            self.state = MEM_READ
-            self.signal_mem_read_stage()
-            return
-        elif opcode is Opcode.MULM:
             self.state = MEM_READ
             self.signal_mem_read_stage()
             return
