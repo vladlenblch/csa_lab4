@@ -94,7 +94,7 @@ out_interrupts: |
 
 out_stdout: |
   8:7
-  ticks: 147
+  ticks: 133
 out_log: |
   tick=00001 state=FETCH_OPCODE         pc=0001 ir=CALL      arg=          0 tos=          0 nos=          0 sp=CFFF rp=DFFF flags=zncvieint mode=main      input=-- instr_addr=0
   tick=00002 state=FETCH_ARGUMENT       pc=0003 ir=CALL      arg=         54 tos=          0 nos=          0 sp=CFFF rp=DFFF flags=zncvieint mode=main      input=-- CALL 54
@@ -106,140 +106,126 @@ out_log: |
   tick=00008 state=FETCH_ARGUMENT       pc=0043 ir=PUSHI32   arg=          1 tos=          2 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- PUSHI32 1
   tick=00009 state=EXECUTE              pc=0043 ir=PUSHI32   arg=          1 tos=          1 nos=          2 sp=D001 rp=E000 flags=zncvieint mode=main      input=-- PUSHI32
   tick=00010 state=FETCH_OPCODE         pc=0044 ir=STORE     arg=          0 tos=          1 nos=          2 sp=D001 rp=E000 flags=zncvieint mode=main      input=-- instr_addr=67
-  tick=00011 state=FETCH_ARGUMENT       pc=0044 ir=STORE     arg=          0 tos=          1 nos=          2 sp=D001 rp=E000 flags=zncvieint mode=main      input=-- STORE
-  tick=00012 state=EXECUTE              pc=0044 ir=STORE     arg=          0 tos=          0 nos=          0 sp=CFFF rp=E000 flags=zncvieint mode=main      input=-- STORE
-  tick=00013 state=FETCH_OPCODE         pc=0045 ir=PUSHI32   arg=          0 tos=          0 nos=          0 sp=CFFF rp=E000 flags=zncvieint mode=main      input=-- instr_addr=68
-  tick=00014 state=FETCH_ARGUMENT       pc=0049 ir=PUSHI32   arg= -382621618 tos=          0 nos=          0 sp=CFFF rp=E000 flags=zncvieint mode=main      input=-- PUSHI32 -382621618
-  tick=00015 state=EXECUTE              pc=0049 ir=PUSHI32   arg= -382621618 tos= -382621618 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- PUSHI32
-  tick=00016 state=FETCH_OPCODE         pc=004A ir=PUSHI32   arg=          0 tos= -382621618 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- instr_addr=73
-  tick=00017 state=FETCH_ARGUMENT       pc=004E ir=PUSHI32   arg=          2 tos= -382621618 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- PUSHI32 2
-  tick=00018 state=EXECUTE              pc=004E ir=PUSHI32   arg=          2 tos=          2 nos= -382621618 sp=D001 rp=E000 flags=zncvieint mode=main      input=-- PUSHI32
-  tick=00019 state=FETCH_OPCODE         pc=004F ir=STORE     arg=          0 tos=          2 nos= -382621618 sp=D001 rp=E000 flags=zncvieint mode=main      input=-- instr_addr=78
-  tick=00020 state=FETCH_ARGUMENT       pc=004F ir=STORE     arg=          0 tos=          2 nos= -382621618 sp=D001 rp=E000 flags=zncvieint mode=main      input=-- STORE
-  tick=00021 state=EXECUTE              pc=004F ir=STORE     arg=          0 tos=          0 nos=          0 sp=CFFF rp=E000 flags=zncvieint mode=main      input=-- STORE
-  tick=00022 state=FETCH_OPCODE         pc=0050 ir=PUSHI32   arg=          0 tos=          0 nos=          0 sp=CFFF rp=E000 flags=zncvieint mode=main      input=-- instr_addr=79
-  tick=00023 state=FETCH_ARGUMENT       pc=0054 ir=PUSHI32   arg=          5 tos=          0 nos=          0 sp=CFFF rp=E000 flags=zncvieint mode=main      input=-- PUSHI32 5
-  tick=00024 state=EXECUTE              pc=0054 ir=PUSHI32   arg=          5 tos=          5 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- PUSHI32
-  tick=00025 state=FETCH_OPCODE         pc=0055 ir=PUSHI32   arg=          0 tos=          5 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- instr_addr=84
-  tick=00026 state=FETCH_ARGUMENT       pc=0059 ir=PUSHI32   arg=          3 tos=          5 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- PUSHI32 3
-  tick=00027 state=EXECUTE              pc=0059 ir=PUSHI32   arg=          3 tos=          3 nos=          5 sp=D001 rp=E000 flags=zncvieint mode=main      input=-- PUSHI32
-  tick=00028 state=FETCH_OPCODE         pc=005A ir=STORE     arg=          0 tos=          3 nos=          5 sp=D001 rp=E000 flags=zncvieint mode=main      input=-- instr_addr=89
-  tick=00029 state=FETCH_ARGUMENT       pc=005A ir=STORE     arg=          0 tos=          3 nos=          5 sp=D001 rp=E000 flags=zncvieint mode=main      input=-- STORE
-  tick=00030 state=EXECUTE              pc=005A ir=STORE     arg=          0 tos=          0 nos=          0 sp=CFFF rp=E000 flags=zncvieint mode=main      input=-- STORE
-  tick=00031 state=FETCH_OPCODE         pc=005B ir=PUSHI32   arg=          0 tos=          0 nos=          0 sp=CFFF rp=E000 flags=zncvieint mode=main      input=-- instr_addr=90
-  tick=00032 state=FETCH_ARGUMENT       pc=005F ir=PUSHI32   arg=  382621625 tos=          0 nos=          0 sp=CFFF rp=E000 flags=zncvieint mode=main      input=-- PUSHI32 382621625
-  tick=00033 state=EXECUTE              pc=005F ir=PUSHI32   arg=  382621625 tos=  382621625 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- PUSHI32
-  tick=00034 state=FETCH_OPCODE         pc=0060 ir=PUSHI32   arg=          0 tos=  382621625 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- instr_addr=95
-  tick=00035 state=FETCH_ARGUMENT       pc=0064 ir=PUSHI32   arg=          4 tos=  382621625 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- PUSHI32 4
-  tick=00036 state=EXECUTE              pc=0064 ir=PUSHI32   arg=          4 tos=          4 nos=  382621625 sp=D001 rp=E000 flags=zncvieint mode=main      input=-- PUSHI32
-  tick=00037 state=FETCH_OPCODE         pc=0065 ir=STORE     arg=          0 tos=          4 nos=  382621625 sp=D001 rp=E000 flags=zncvieint mode=main      input=-- instr_addr=100
-  tick=00038 state=FETCH_ARGUMENT       pc=0065 ir=STORE     arg=          0 tos=          4 nos=  382621625 sp=D001 rp=E000 flags=zncvieint mode=main      input=-- STORE
-  tick=00039 state=EXECUTE              pc=0065 ir=STORE     arg=          0 tos=          0 nos=          0 sp=CFFF rp=E000 flags=zncvieint mode=main      input=-- STORE
-  tick=00040 state=FETCH_OPCODE         pc=0066 ir=CALL      arg=          0 tos=          0 nos=          0 sp=CFFF rp=E000 flags=zncvieint mode=main      input=-- instr_addr=101
-  tick=00041 state=FETCH_ARGUMENT       pc=0068 ir=CALL      arg=       -100 tos=          0 nos=          0 sp=CFFF rp=E000 flags=zncvieint mode=main      input=-- CALL -100
-  tick=00042 state=EXECUTE              pc=0004 ir=CALL      arg=       -100 tos=          0 nos=          0 sp=CFFF rp=E001 flags=zncvieint mode=main      input=-- CALL
-  tick=00043 state=FETCH_OPCODE         pc=0005 ir=PUSHI32   arg=          0 tos=          0 nos=          0 sp=CFFF rp=E001 flags=zncvieint mode=main      input=-- instr_addr=4
-  tick=00044 state=FETCH_ARGUMENT       pc=0009 ir=PUSHI32   arg=          2 tos=          0 nos=          0 sp=CFFF rp=E001 flags=zncvieint mode=main      input=-- PUSHI32 2
-  tick=00045 state=EXECUTE              pc=0009 ir=PUSHI32   arg=          2 tos=          2 nos=          0 sp=D000 rp=E001 flags=zncvieint mode=main      input=-- PUSHI32
-  tick=00046 state=FETCH_OPCODE         pc=000A ir=LOAD      arg=          0 tos=          2 nos=          0 sp=D000 rp=E001 flags=zncvieint mode=main      input=-- instr_addr=9
-  tick=00047 state=FETCH_ARGUMENT       pc=000A ir=LOAD      arg=          0 tos=          2 nos=          0 sp=D000 rp=E001 flags=zncvieint mode=main      input=-- LOAD
-  tick=00048 state=EXECUTE              pc=000A ir=LOAD      arg=          0 tos= -382621618 nos=          0 sp=D000 rp=E001 flags=zncvieint mode=main      input=-- LOAD
-  tick=00049 state=FETCH_OPCODE         pc=000B ir=PUSHI32   arg=          0 tos= -382621618 nos=          0 sp=D000 rp=E001 flags=zncvieint mode=main      input=-- instr_addr=10
-  tick=00050 state=FETCH_ARGUMENT       pc=000F ir=PUSHI32   arg=          4 tos= -382621618 nos=          0 sp=D000 rp=E001 flags=zncvieint mode=main      input=-- PUSHI32 4
-  tick=00051 state=EXECUTE              pc=000F ir=PUSHI32   arg=          4 tos=          4 nos= -382621618 sp=D001 rp=E001 flags=zncvieint mode=main      input=-- PUSHI32
-  tick=00052 state=FETCH_OPCODE         pc=0010 ir=LOAD      arg=          0 tos=          4 nos= -382621618 sp=D001 rp=E001 flags=zncvieint mode=main      input=-- instr_addr=15
-  tick=00053 state=FETCH_ARGUMENT       pc=0010 ir=LOAD      arg=          0 tos=          4 nos= -382621618 sp=D001 rp=E001 flags=zncvieint mode=main      input=-- LOAD
-  tick=00054 state=EXECUTE              pc=0010 ir=LOAD      arg=          0 tos=  382621625 nos= -382621618 sp=D001 rp=E001 flags=zncvieint mode=main      input=-- LOAD
-  tick=00055 state=FETCH_OPCODE         pc=0011 ir=ADD       arg=          0 tos=  382621625 nos= -382621618 sp=D001 rp=E001 flags=zncvieint mode=main      input=-- instr_addr=16
-  tick=00056 state=FETCH_ARGUMENT       pc=0011 ir=ADD       arg=          0 tos=  382621625 nos= -382621618 sp=D001 rp=E001 flags=zncvieint mode=main      input=-- ADD
-  tick=00057 state=EXECUTE              pc=0011 ir=ADD       arg=          0 tos=          7 nos=          0 sp=D000 rp=E001 flags=znCvieint mode=main      input=-- ADD
-  tick=00058 state=FETCH_OPCODE         pc=0012 ir=GET_CARRY arg=          0 tos=          7 nos=          0 sp=D000 rp=E001 flags=znCvieint mode=main      input=-- instr_addr=17
-  tick=00059 state=FETCH_ARGUMENT       pc=0012 ir=GET_CARRY arg=          0 tos=          7 nos=          0 sp=D000 rp=E001 flags=znCvieint mode=main      input=-- GET_CARRY
-  tick=00060 state=EXECUTE              pc=0012 ir=GET_CARRY arg=          0 tos=          1 nos=          7 sp=D001 rp=E001 flags=znCvieint mode=main      input=-- GET_CARRY
-  tick=00061 state=FETCH_OPCODE         pc=0013 ir=PUSHI32   arg=          0 tos=          1 nos=          7 sp=D001 rp=E001 flags=znCvieint mode=main      input=-- instr_addr=18
-  tick=00062 state=FETCH_ARGUMENT       pc=0017 ir=PUSHI32   arg=          5 tos=          1 nos=          7 sp=D001 rp=E001 flags=znCvieint mode=main      input=-- PUSHI32 5
-  tick=00063 state=EXECUTE              pc=0017 ir=PUSHI32   arg=          5 tos=          5 nos=          1 sp=D002 rp=E001 flags=znCvieint mode=main      input=-- PUSHI32
-  tick=00064 state=FETCH_OPCODE         pc=0018 ir=STORE     arg=          0 tos=          5 nos=          1 sp=D002 rp=E001 flags=znCvieint mode=main      input=-- instr_addr=23
-  tick=00065 state=FETCH_ARGUMENT       pc=0018 ir=STORE     arg=          0 tos=          5 nos=          1 sp=D002 rp=E001 flags=znCvieint mode=main      input=-- STORE
-  tick=00066 state=EXECUTE              pc=0018 ir=STORE     arg=          0 tos=          7 nos=          0 sp=D000 rp=E001 flags=znCvieint mode=main      input=-- STORE
-  tick=00067 state=FETCH_OPCODE         pc=0019 ir=PUSHI32   arg=          0 tos=          7 nos=          0 sp=D000 rp=E001 flags=znCvieint mode=main      input=-- instr_addr=24
-  tick=00068 state=FETCH_ARGUMENT       pc=001D ir=PUSHI32   arg=          7 tos=          7 nos=          0 sp=D000 rp=E001 flags=znCvieint mode=main      input=-- PUSHI32 7
-  tick=00069 state=EXECUTE              pc=001D ir=PUSHI32   arg=          7 tos=          7 nos=          7 sp=D001 rp=E001 flags=znCvieint mode=main      input=-- PUSHI32
-  tick=00070 state=FETCH_OPCODE         pc=001E ir=STORE     arg=          0 tos=          7 nos=          7 sp=D001 rp=E001 flags=znCvieint mode=main      input=-- instr_addr=29
-  tick=00071 state=FETCH_ARGUMENT       pc=001E ir=STORE     arg=          0 tos=          7 nos=          7 sp=D001 rp=E001 flags=znCvieint mode=main      input=-- STORE
-  tick=00072 state=EXECUTE              pc=001E ir=STORE     arg=          0 tos=          0 nos=          0 sp=CFFF rp=E001 flags=znCvieint mode=main      input=-- STORE
-  tick=00073 state=FETCH_OPCODE         pc=001F ir=PUSHI32   arg=          0 tos=          0 nos=          0 sp=CFFF rp=E001 flags=znCvieint mode=main      input=-- instr_addr=30
-  tick=00074 state=FETCH_ARGUMENT       pc=0023 ir=PUSHI32   arg=          1 tos=          0 nos=          0 sp=CFFF rp=E001 flags=znCvieint mode=main      input=-- PUSHI32 1
-  tick=00075 state=EXECUTE              pc=0023 ir=PUSHI32   arg=          1 tos=          1 nos=          0 sp=D000 rp=E001 flags=znCvieint mode=main      input=-- PUSHI32
-  tick=00076 state=FETCH_OPCODE         pc=0024 ir=LOAD      arg=          0 tos=          1 nos=          0 sp=D000 rp=E001 flags=znCvieint mode=main      input=-- instr_addr=35
-  tick=00077 state=FETCH_ARGUMENT       pc=0024 ir=LOAD      arg=          0 tos=          1 nos=          0 sp=D000 rp=E001 flags=znCvieint mode=main      input=-- LOAD
-  tick=00078 state=EXECUTE              pc=0024 ir=LOAD      arg=          0 tos=          2 nos=          0 sp=D000 rp=E001 flags=znCvieint mode=main      input=-- LOAD
-  tick=00079 state=FETCH_OPCODE         pc=0025 ir=PUSHI32   arg=          0 tos=          2 nos=          0 sp=D000 rp=E001 flags=znCvieint mode=main      input=-- instr_addr=36
-  tick=00080 state=FETCH_ARGUMENT       pc=0029 ir=PUSHI32   arg=          3 tos=          2 nos=          0 sp=D000 rp=E001 flags=znCvieint mode=main      input=-- PUSHI32 3
-  tick=00081 state=EXECUTE              pc=0029 ir=PUSHI32   arg=          3 tos=          3 nos=          2 sp=D001 rp=E001 flags=znCvieint mode=main      input=-- PUSHI32
-  tick=00082 state=FETCH_OPCODE         pc=002A ir=LOAD      arg=          0 tos=          3 nos=          2 sp=D001 rp=E001 flags=znCvieint mode=main      input=-- instr_addr=41
-  tick=00083 state=FETCH_ARGUMENT       pc=002A ir=LOAD      arg=          0 tos=          3 nos=          2 sp=D001 rp=E001 flags=znCvieint mode=main      input=-- LOAD
-  tick=00084 state=EXECUTE              pc=002A ir=LOAD      arg=          0 tos=          5 nos=          2 sp=D001 rp=E001 flags=znCvieint mode=main      input=-- LOAD
-  tick=00085 state=FETCH_OPCODE         pc=002B ir=ADD       arg=          0 tos=          5 nos=          2 sp=D001 rp=E001 flags=znCvieint mode=main      input=-- instr_addr=42
-  tick=00086 state=FETCH_ARGUMENT       pc=002B ir=ADD       arg=          0 tos=          5 nos=          2 sp=D001 rp=E001 flags=znCvieint mode=main      input=-- ADD
-  tick=00087 state=EXECUTE              pc=002B ir=ADD       arg=          0 tos=          7 nos=          0 sp=D000 rp=E001 flags=zncvieint mode=main      input=-- ADD
-  tick=00088 state=FETCH_OPCODE         pc=002C ir=PUSHI32   arg=          0 tos=          7 nos=          0 sp=D000 rp=E001 flags=zncvieint mode=main      input=-- instr_addr=43
-  tick=00089 state=FETCH_ARGUMENT       pc=0030 ir=PUSHI32   arg=          5 tos=          7 nos=          0 sp=D000 rp=E001 flags=zncvieint mode=main      input=-- PUSHI32 5
-  tick=00090 state=EXECUTE              pc=0030 ir=PUSHI32   arg=          5 tos=          5 nos=          7 sp=D001 rp=E001 flags=zncvieint mode=main      input=-- PUSHI32
-  tick=00091 state=FETCH_OPCODE         pc=0031 ir=LOAD      arg=          0 tos=          5 nos=          7 sp=D001 rp=E001 flags=zncvieint mode=main      input=-- instr_addr=48
-  tick=00092 state=FETCH_ARGUMENT       pc=0031 ir=LOAD      arg=          0 tos=          5 nos=          7 sp=D001 rp=E001 flags=zncvieint mode=main      input=-- LOAD
-  tick=00093 state=EXECUTE              pc=0031 ir=LOAD      arg=          0 tos=          1 nos=          7 sp=D001 rp=E001 flags=zncvieint mode=main      input=-- LOAD
-  tick=00094 state=FETCH_OPCODE         pc=0032 ir=ADD       arg=          0 tos=          1 nos=          7 sp=D001 rp=E001 flags=zncvieint mode=main      input=-- instr_addr=49
-  tick=00095 state=FETCH_ARGUMENT       pc=0032 ir=ADD       arg=          0 tos=          1 nos=          7 sp=D001 rp=E001 flags=zncvieint mode=main      input=-- ADD
-  tick=00096 state=EXECUTE              pc=0032 ir=ADD       arg=          0 tos=          8 nos=          0 sp=D000 rp=E001 flags=zncvieint mode=main      input=-- ADD
-  tick=00097 state=FETCH_OPCODE         pc=0033 ir=PUSHI32   arg=          0 tos=          8 nos=          0 sp=D000 rp=E001 flags=zncvieint mode=main      input=-- instr_addr=50
-  tick=00098 state=FETCH_ARGUMENT       pc=0037 ir=PUSHI32   arg=          6 tos=          8 nos=          0 sp=D000 rp=E001 flags=zncvieint mode=main      input=-- PUSHI32 6
-  tick=00099 state=EXECUTE              pc=0037 ir=PUSHI32   arg=          6 tos=          6 nos=          8 sp=D001 rp=E001 flags=zncvieint mode=main      input=-- PUSHI32
-  tick=00100 state=FETCH_OPCODE         pc=0038 ir=STORE     arg=          0 tos=          6 nos=          8 sp=D001 rp=E001 flags=zncvieint mode=main      input=-- instr_addr=55
-  tick=00101 state=FETCH_ARGUMENT       pc=0038 ir=STORE     arg=          0 tos=          6 nos=          8 sp=D001 rp=E001 flags=zncvieint mode=main      input=-- STORE
-  tick=00102 state=EXECUTE              pc=0038 ir=STORE     arg=          0 tos=          0 nos=          0 sp=CFFF rp=E001 flags=zncvieint mode=main      input=-- STORE
-  tick=00103 state=FETCH_OPCODE         pc=0039 ir=RET       arg=          0 tos=          0 nos=          0 sp=CFFF rp=E001 flags=zncvieint mode=main      input=-- instr_addr=56
-  tick=00104 state=FETCH_ARGUMENT       pc=0039 ir=RET       arg=          0 tos=          0 nos=          0 sp=CFFF rp=E001 flags=zncvieint mode=main      input=-- RET
-  tick=00105 state=EXECUTE              pc=0068 ir=RET       arg=          0 tos=          0 nos=          0 sp=CFFF rp=E000 flags=zncvieint mode=main      input=-- RET
-  tick=00106 state=FETCH_OPCODE         pc=0069 ir=PUSHI32   arg=          0 tos=          0 nos=          0 sp=CFFF rp=E000 flags=zncvieint mode=main      input=-- instr_addr=104
-  tick=00107 state=FETCH_ARGUMENT       pc=006D ir=PUSHI32   arg=          6 tos=          0 nos=          0 sp=CFFF rp=E000 flags=zncvieint mode=main      input=-- PUSHI32 6
-  tick=00108 state=EXECUTE              pc=006D ir=PUSHI32   arg=          6 tos=          6 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- PUSHI32
-  tick=00109 state=FETCH_OPCODE         pc=006E ir=LOAD      arg=          0 tos=          6 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- instr_addr=109
-  tick=00110 state=FETCH_ARGUMENT       pc=006E ir=LOAD      arg=          0 tos=          6 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- LOAD
-  tick=00111 state=EXECUTE              pc=006E ir=LOAD      arg=          0 tos=          8 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- LOAD
-  tick=00112 state=FETCH_OPCODE         pc=006F ir=PUSHI32   arg=          0 tos=          8 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- instr_addr=110
-  tick=00113 state=FETCH_ARGUMENT       pc=0073 ir=PUSHI32   arg=         48 tos=          8 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- PUSHI32 48
-  tick=00114 state=EXECUTE              pc=0073 ir=PUSHI32   arg=         48 tos=         48 nos=          8 sp=D001 rp=E000 flags=zncvieint mode=main      input=-- PUSHI32
-  tick=00115 state=FETCH_OPCODE         pc=0074 ir=ADD       arg=          0 tos=         48 nos=          8 sp=D001 rp=E000 flags=zncvieint mode=main      input=-- instr_addr=115
-  tick=00116 state=FETCH_ARGUMENT       pc=0074 ir=ADD       arg=          0 tos=         48 nos=          8 sp=D001 rp=E000 flags=zncvieint mode=main      input=-- ADD
-  tick=00117 state=EXECUTE              pc=0074 ir=ADD       arg=          0 tos=         56 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- ADD
-  tick=00118 state=FETCH_OPCODE         pc=0075 ir=STOREA    arg=          0 tos=         56 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- instr_addr=116
-  tick=00119 state=FETCH_ARGUMENT       pc=0077 ir=STOREA    arg=      65282 tos=         56 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- STOREA 0xFF02
-  tick=00120 state=EXECUTE              pc=0077 ir=STOREA    arg=      65282 tos=          0 nos=          0 sp=CFFF rp=E000 flags=zncvieint mode=main      input=-- STOREA
-  tick=00121 state=FETCH_OPCODE         pc=0078 ir=PUSHI32   arg=          0 tos=          0 nos=          0 sp=CFFF rp=E000 flags=zncvieint mode=main      input=-- instr_addr=119
-  tick=00122 state=FETCH_ARGUMENT       pc=007C ir=PUSHI32   arg=         58 tos=          0 nos=          0 sp=CFFF rp=E000 flags=zncvieint mode=main      input=-- PUSHI32 58
-  tick=00123 state=EXECUTE              pc=007C ir=PUSHI32   arg=         58 tos=         58 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- PUSHI32
-  tick=00124 state=FETCH_OPCODE         pc=007D ir=STOREA    arg=          0 tos=         58 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- instr_addr=124
-  tick=00125 state=FETCH_ARGUMENT       pc=007F ir=STOREA    arg=      65282 tos=         58 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- STOREA 0xFF02
-  tick=00126 state=EXECUTE              pc=007F ir=STOREA    arg=      65282 tos=          0 nos=          0 sp=CFFF rp=E000 flags=zncvieint mode=main      input=-- STOREA
-  tick=00127 state=FETCH_OPCODE         pc=0080 ir=PUSHI32   arg=          0 tos=          0 nos=          0 sp=CFFF rp=E000 flags=zncvieint mode=main      input=-- instr_addr=127
-  tick=00128 state=FETCH_ARGUMENT       pc=0084 ir=PUSHI32   arg=          7 tos=          0 nos=          0 sp=CFFF rp=E000 flags=zncvieint mode=main      input=-- PUSHI32 7
-  tick=00129 state=EXECUTE              pc=0084 ir=PUSHI32   arg=          7 tos=          7 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- PUSHI32
-  tick=00130 state=FETCH_OPCODE         pc=0085 ir=LOAD      arg=          0 tos=          7 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- instr_addr=132
-  tick=00131 state=FETCH_ARGUMENT       pc=0085 ir=LOAD      arg=          0 tos=          7 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- LOAD
-  tick=00132 state=EXECUTE              pc=0085 ir=LOAD      arg=          0 tos=          7 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- LOAD
-  tick=00133 state=FETCH_OPCODE         pc=0086 ir=PUSHI32   arg=          0 tos=          7 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- instr_addr=133
-  tick=00134 state=FETCH_ARGUMENT       pc=008A ir=PUSHI32   arg=         48 tos=          7 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- PUSHI32 48
-  tick=00135 state=EXECUTE              pc=008A ir=PUSHI32   arg=         48 tos=         48 nos=          7 sp=D001 rp=E000 flags=zncvieint mode=main      input=-- PUSHI32
-  tick=00136 state=FETCH_OPCODE         pc=008B ir=ADD       arg=          0 tos=         48 nos=          7 sp=D001 rp=E000 flags=zncvieint mode=main      input=-- instr_addr=138
-  tick=00137 state=FETCH_ARGUMENT       pc=008B ir=ADD       arg=          0 tos=         48 nos=          7 sp=D001 rp=E000 flags=zncvieint mode=main      input=-- ADD
-  tick=00138 state=EXECUTE              pc=008B ir=ADD       arg=          0 tos=         55 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- ADD
-  tick=00139 state=FETCH_OPCODE         pc=008C ir=STOREA    arg=          0 tos=         55 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- instr_addr=139
-  tick=00140 state=FETCH_ARGUMENT       pc=008E ir=STOREA    arg=      65282 tos=         55 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- STOREA 0xFF02
-  tick=00141 state=EXECUTE              pc=008E ir=STOREA    arg=      65282 tos=          0 nos=          0 sp=CFFF rp=E000 flags=zncvieint mode=main      input=-- STOREA
-  tick=00142 state=FETCH_OPCODE         pc=008F ir=RET       arg=          0 tos=          0 nos=          0 sp=CFFF rp=E000 flags=zncvieint mode=main      input=-- instr_addr=142
-  tick=00143 state=FETCH_ARGUMENT       pc=008F ir=RET       arg=          0 tos=          0 nos=          0 sp=CFFF rp=E000 flags=zncvieint mode=main      input=-- RET
-  tick=00144 state=EXECUTE              pc=0003 ir=RET       arg=          0 tos=          0 nos=          0 sp=CFFF rp=DFFF flags=zncvieint mode=main      input=-- RET
-  tick=00145 state=FETCH_OPCODE         pc=0004 ir=HALT      arg=          0 tos=          0 nos=          0 sp=CFFF rp=DFFF flags=zncvieint mode=main      input=-- instr_addr=3
-  tick=00146 state=FETCH_ARGUMENT       pc=0004 ir=HALT      arg=          0 tos=          0 nos=          0 sp=CFFF rp=DFFF flags=zncvieint mode=main      input=-- HALT
-  tick=00147 state=EXECUTE              pc=0004 ir=HALT      arg=          0 tos=          0 nos=          0 sp=CFFF rp=DFFF flags=zncvieint mode=main      input=-- HALT
+  tick=00011 state=EXECUTE              pc=0044 ir=STORE     arg=          0 tos=          0 nos=          0 sp=CFFF rp=E000 flags=zncvieint mode=main      input=-- STORE
+  tick=00012 state=FETCH_OPCODE         pc=0045 ir=PUSHI32   arg=          0 tos=          0 nos=          0 sp=CFFF rp=E000 flags=zncvieint mode=main      input=-- instr_addr=68
+  tick=00013 state=FETCH_ARGUMENT       pc=0049 ir=PUSHI32   arg= -382621618 tos=          0 nos=          0 sp=CFFF rp=E000 flags=zncvieint mode=main      input=-- PUSHI32 -382621618
+  tick=00014 state=EXECUTE              pc=0049 ir=PUSHI32   arg= -382621618 tos= -382621618 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- PUSHI32
+  tick=00015 state=FETCH_OPCODE         pc=004A ir=PUSHI32   arg=          0 tos= -382621618 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- instr_addr=73
+  tick=00016 state=FETCH_ARGUMENT       pc=004E ir=PUSHI32   arg=          2 tos= -382621618 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- PUSHI32 2
+  tick=00017 state=EXECUTE              pc=004E ir=PUSHI32   arg=          2 tos=          2 nos= -382621618 sp=D001 rp=E000 flags=zncvieint mode=main      input=-- PUSHI32
+  tick=00018 state=FETCH_OPCODE         pc=004F ir=STORE     arg=          0 tos=          2 nos= -382621618 sp=D001 rp=E000 flags=zncvieint mode=main      input=-- instr_addr=78
+  tick=00019 state=EXECUTE              pc=004F ir=STORE     arg=          0 tos=          0 nos=          0 sp=CFFF rp=E000 flags=zncvieint mode=main      input=-- STORE
+  tick=00020 state=FETCH_OPCODE         pc=0050 ir=PUSHI32   arg=          0 tos=          0 nos=          0 sp=CFFF rp=E000 flags=zncvieint mode=main      input=-- instr_addr=79
+  tick=00021 state=FETCH_ARGUMENT       pc=0054 ir=PUSHI32   arg=          5 tos=          0 nos=          0 sp=CFFF rp=E000 flags=zncvieint mode=main      input=-- PUSHI32 5
+  tick=00022 state=EXECUTE              pc=0054 ir=PUSHI32   arg=          5 tos=          5 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- PUSHI32
+  tick=00023 state=FETCH_OPCODE         pc=0055 ir=PUSHI32   arg=          0 tos=          5 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- instr_addr=84
+  tick=00024 state=FETCH_ARGUMENT       pc=0059 ir=PUSHI32   arg=          3 tos=          5 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- PUSHI32 3
+  tick=00025 state=EXECUTE              pc=0059 ir=PUSHI32   arg=          3 tos=          3 nos=          5 sp=D001 rp=E000 flags=zncvieint mode=main      input=-- PUSHI32
+  tick=00026 state=FETCH_OPCODE         pc=005A ir=STORE     arg=          0 tos=          3 nos=          5 sp=D001 rp=E000 flags=zncvieint mode=main      input=-- instr_addr=89
+  tick=00027 state=EXECUTE              pc=005A ir=STORE     arg=          0 tos=          0 nos=          0 sp=CFFF rp=E000 flags=zncvieint mode=main      input=-- STORE
+  tick=00028 state=FETCH_OPCODE         pc=005B ir=PUSHI32   arg=          0 tos=          0 nos=          0 sp=CFFF rp=E000 flags=zncvieint mode=main      input=-- instr_addr=90
+  tick=00029 state=FETCH_ARGUMENT       pc=005F ir=PUSHI32   arg=  382621625 tos=          0 nos=          0 sp=CFFF rp=E000 flags=zncvieint mode=main      input=-- PUSHI32 382621625
+  tick=00030 state=EXECUTE              pc=005F ir=PUSHI32   arg=  382621625 tos=  382621625 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- PUSHI32
+  tick=00031 state=FETCH_OPCODE         pc=0060 ir=PUSHI32   arg=          0 tos=  382621625 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- instr_addr=95
+  tick=00032 state=FETCH_ARGUMENT       pc=0064 ir=PUSHI32   arg=          4 tos=  382621625 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- PUSHI32 4
+  tick=00033 state=EXECUTE              pc=0064 ir=PUSHI32   arg=          4 tos=          4 nos=  382621625 sp=D001 rp=E000 flags=zncvieint mode=main      input=-- PUSHI32
+  tick=00034 state=FETCH_OPCODE         pc=0065 ir=STORE     arg=          0 tos=          4 nos=  382621625 sp=D001 rp=E000 flags=zncvieint mode=main      input=-- instr_addr=100
+  tick=00035 state=EXECUTE              pc=0065 ir=STORE     arg=          0 tos=          0 nos=          0 sp=CFFF rp=E000 flags=zncvieint mode=main      input=-- STORE
+  tick=00036 state=FETCH_OPCODE         pc=0066 ir=CALL      arg=          0 tos=          0 nos=          0 sp=CFFF rp=E000 flags=zncvieint mode=main      input=-- instr_addr=101
+  tick=00037 state=FETCH_ARGUMENT       pc=0068 ir=CALL      arg=       -100 tos=          0 nos=          0 sp=CFFF rp=E000 flags=zncvieint mode=main      input=-- CALL -100
+  tick=00038 state=EXECUTE              pc=0004 ir=CALL      arg=       -100 tos=          0 nos=          0 sp=CFFF rp=E001 flags=zncvieint mode=main      input=-- CALL
+  tick=00039 state=FETCH_OPCODE         pc=0005 ir=PUSHI32   arg=          0 tos=          0 nos=          0 sp=CFFF rp=E001 flags=zncvieint mode=main      input=-- instr_addr=4
+  tick=00040 state=FETCH_ARGUMENT       pc=0009 ir=PUSHI32   arg=          2 tos=          0 nos=          0 sp=CFFF rp=E001 flags=zncvieint mode=main      input=-- PUSHI32 2
+  tick=00041 state=EXECUTE              pc=0009 ir=PUSHI32   arg=          2 tos=          2 nos=          0 sp=D000 rp=E001 flags=zncvieint mode=main      input=-- PUSHI32
+  tick=00042 state=FETCH_OPCODE         pc=000A ir=LOAD      arg=          0 tos=          2 nos=          0 sp=D000 rp=E001 flags=zncvieint mode=main      input=-- instr_addr=9
+  tick=00043 state=MEM_READ             pc=000A ir=LOAD      arg=          0 tos=          2 nos=          0 sp=D000 rp=E001 flags=zncvieint mode=main      input=-- addr=2
+  tick=00044 state=WRITEBACK            pc=000A ir=LOAD      arg=          0 tos= -382621618 nos=          0 sp=D000 rp=E001 flags=zncvieint mode=main      input=-- LOAD
+  tick=00045 state=FETCH_OPCODE         pc=000B ir=PUSHI32   arg=          0 tos= -382621618 nos=          0 sp=D000 rp=E001 flags=zncvieint mode=main      input=-- instr_addr=10
+  tick=00046 state=FETCH_ARGUMENT       pc=000F ir=PUSHI32   arg=          4 tos= -382621618 nos=          0 sp=D000 rp=E001 flags=zncvieint mode=main      input=-- PUSHI32 4
+  tick=00047 state=EXECUTE              pc=000F ir=PUSHI32   arg=          4 tos=          4 nos= -382621618 sp=D001 rp=E001 flags=zncvieint mode=main      input=-- PUSHI32
+  tick=00048 state=FETCH_OPCODE         pc=0010 ir=LOAD      arg=          0 tos=          4 nos= -382621618 sp=D001 rp=E001 flags=zncvieint mode=main      input=-- instr_addr=15
+  tick=00049 state=MEM_READ             pc=0010 ir=LOAD      arg=          0 tos=          4 nos= -382621618 sp=D001 rp=E001 flags=zncvieint mode=main      input=-- addr=4
+  tick=00050 state=WRITEBACK            pc=0010 ir=LOAD      arg=          0 tos=  382621625 nos= -382621618 sp=D001 rp=E001 flags=zncvieint mode=main      input=-- LOAD
+  tick=00051 state=FETCH_OPCODE         pc=0011 ir=ADD       arg=          0 tos=  382621625 nos= -382621618 sp=D001 rp=E001 flags=zncvieint mode=main      input=-- instr_addr=16
+  tick=00052 state=EXECUTE              pc=0011 ir=ADD       arg=          0 tos=          7 nos=          0 sp=D000 rp=E001 flags=znCvieint mode=main      input=-- ADD
+  tick=00053 state=FETCH_OPCODE         pc=0012 ir=GET_CARRY arg=          0 tos=          7 nos=          0 sp=D000 rp=E001 flags=znCvieint mode=main      input=-- instr_addr=17
+  tick=00054 state=EXECUTE              pc=0012 ir=GET_CARRY arg=          0 tos=          1 nos=          7 sp=D001 rp=E001 flags=znCvieint mode=main      input=-- GET_CARRY
+  tick=00055 state=FETCH_OPCODE         pc=0013 ir=PUSHI32   arg=          0 tos=          1 nos=          7 sp=D001 rp=E001 flags=znCvieint mode=main      input=-- instr_addr=18
+  tick=00056 state=FETCH_ARGUMENT       pc=0017 ir=PUSHI32   arg=          5 tos=          1 nos=          7 sp=D001 rp=E001 flags=znCvieint mode=main      input=-- PUSHI32 5
+  tick=00057 state=EXECUTE              pc=0017 ir=PUSHI32   arg=          5 tos=          5 nos=          1 sp=D002 rp=E001 flags=znCvieint mode=main      input=-- PUSHI32
+  tick=00058 state=FETCH_OPCODE         pc=0018 ir=STORE     arg=          0 tos=          5 nos=          1 sp=D002 rp=E001 flags=znCvieint mode=main      input=-- instr_addr=23
+  tick=00059 state=EXECUTE              pc=0018 ir=STORE     arg=          0 tos=          7 nos=          0 sp=D000 rp=E001 flags=znCvieint mode=main      input=-- STORE
+  tick=00060 state=FETCH_OPCODE         pc=0019 ir=PUSHI32   arg=          0 tos=          7 nos=          0 sp=D000 rp=E001 flags=znCvieint mode=main      input=-- instr_addr=24
+  tick=00061 state=FETCH_ARGUMENT       pc=001D ir=PUSHI32   arg=          7 tos=          7 nos=          0 sp=D000 rp=E001 flags=znCvieint mode=main      input=-- PUSHI32 7
+  tick=00062 state=EXECUTE              pc=001D ir=PUSHI32   arg=          7 tos=          7 nos=          7 sp=D001 rp=E001 flags=znCvieint mode=main      input=-- PUSHI32
+  tick=00063 state=FETCH_OPCODE         pc=001E ir=STORE     arg=          0 tos=          7 nos=          7 sp=D001 rp=E001 flags=znCvieint mode=main      input=-- instr_addr=29
+  tick=00064 state=EXECUTE              pc=001E ir=STORE     arg=          0 tos=          0 nos=          0 sp=CFFF rp=E001 flags=znCvieint mode=main      input=-- STORE
+  tick=00065 state=FETCH_OPCODE         pc=001F ir=PUSHI32   arg=          0 tos=          0 nos=          0 sp=CFFF rp=E001 flags=znCvieint mode=main      input=-- instr_addr=30
+  tick=00066 state=FETCH_ARGUMENT       pc=0023 ir=PUSHI32   arg=          1 tos=          0 nos=          0 sp=CFFF rp=E001 flags=znCvieint mode=main      input=-- PUSHI32 1
+  tick=00067 state=EXECUTE              pc=0023 ir=PUSHI32   arg=          1 tos=          1 nos=          0 sp=D000 rp=E001 flags=znCvieint mode=main      input=-- PUSHI32
+  tick=00068 state=FETCH_OPCODE         pc=0024 ir=LOAD      arg=          0 tos=          1 nos=          0 sp=D000 rp=E001 flags=znCvieint mode=main      input=-- instr_addr=35
+  tick=00069 state=MEM_READ             pc=0024 ir=LOAD      arg=          0 tos=          1 nos=          0 sp=D000 rp=E001 flags=znCvieint mode=main      input=-- addr=1
+  tick=00070 state=WRITEBACK            pc=0024 ir=LOAD      arg=          0 tos=          2 nos=          0 sp=D000 rp=E001 flags=znCvieint mode=main      input=-- LOAD
+  tick=00071 state=FETCH_OPCODE         pc=0025 ir=PUSHI32   arg=          0 tos=          2 nos=          0 sp=D000 rp=E001 flags=znCvieint mode=main      input=-- instr_addr=36
+  tick=00072 state=FETCH_ARGUMENT       pc=0029 ir=PUSHI32   arg=          3 tos=          2 nos=          0 sp=D000 rp=E001 flags=znCvieint mode=main      input=-- PUSHI32 3
+  tick=00073 state=EXECUTE              pc=0029 ir=PUSHI32   arg=          3 tos=          3 nos=          2 sp=D001 rp=E001 flags=znCvieint mode=main      input=-- PUSHI32
+  tick=00074 state=FETCH_OPCODE         pc=002A ir=LOAD      arg=          0 tos=          3 nos=          2 sp=D001 rp=E001 flags=znCvieint mode=main      input=-- instr_addr=41
+  tick=00075 state=MEM_READ             pc=002A ir=LOAD      arg=          0 tos=          3 nos=          2 sp=D001 rp=E001 flags=znCvieint mode=main      input=-- addr=3
+  tick=00076 state=WRITEBACK            pc=002A ir=LOAD      arg=          0 tos=          5 nos=          2 sp=D001 rp=E001 flags=znCvieint mode=main      input=-- LOAD
+  tick=00077 state=FETCH_OPCODE         pc=002B ir=ADD       arg=          0 tos=          5 nos=          2 sp=D001 rp=E001 flags=znCvieint mode=main      input=-- instr_addr=42
+  tick=00078 state=EXECUTE              pc=002B ir=ADD       arg=          0 tos=          7 nos=          0 sp=D000 rp=E001 flags=zncvieint mode=main      input=-- ADD
+  tick=00079 state=FETCH_OPCODE         pc=002C ir=PUSHI32   arg=          0 tos=          7 nos=          0 sp=D000 rp=E001 flags=zncvieint mode=main      input=-- instr_addr=43
+  tick=00080 state=FETCH_ARGUMENT       pc=0030 ir=PUSHI32   arg=          5 tos=          7 nos=          0 sp=D000 rp=E001 flags=zncvieint mode=main      input=-- PUSHI32 5
+  tick=00081 state=EXECUTE              pc=0030 ir=PUSHI32   arg=          5 tos=          5 nos=          7 sp=D001 rp=E001 flags=zncvieint mode=main      input=-- PUSHI32
+  tick=00082 state=FETCH_OPCODE         pc=0031 ir=LOAD      arg=          0 tos=          5 nos=          7 sp=D001 rp=E001 flags=zncvieint mode=main      input=-- instr_addr=48
+  tick=00083 state=MEM_READ             pc=0031 ir=LOAD      arg=          0 tos=          5 nos=          7 sp=D001 rp=E001 flags=zncvieint mode=main      input=-- addr=5
+  tick=00084 state=WRITEBACK            pc=0031 ir=LOAD      arg=          0 tos=          1 nos=          7 sp=D001 rp=E001 flags=zncvieint mode=main      input=-- LOAD
+  tick=00085 state=FETCH_OPCODE         pc=0032 ir=ADD       arg=          0 tos=          1 nos=          7 sp=D001 rp=E001 flags=zncvieint mode=main      input=-- instr_addr=49
+  tick=00086 state=EXECUTE              pc=0032 ir=ADD       arg=          0 tos=          8 nos=          0 sp=D000 rp=E001 flags=zncvieint mode=main      input=-- ADD
+  tick=00087 state=FETCH_OPCODE         pc=0033 ir=PUSHI32   arg=          0 tos=          8 nos=          0 sp=D000 rp=E001 flags=zncvieint mode=main      input=-- instr_addr=50
+  tick=00088 state=FETCH_ARGUMENT       pc=0037 ir=PUSHI32   arg=          6 tos=          8 nos=          0 sp=D000 rp=E001 flags=zncvieint mode=main      input=-- PUSHI32 6
+  tick=00089 state=EXECUTE              pc=0037 ir=PUSHI32   arg=          6 tos=          6 nos=          8 sp=D001 rp=E001 flags=zncvieint mode=main      input=-- PUSHI32
+  tick=00090 state=FETCH_OPCODE         pc=0038 ir=STORE     arg=          0 tos=          6 nos=          8 sp=D001 rp=E001 flags=zncvieint mode=main      input=-- instr_addr=55
+  tick=00091 state=EXECUTE              pc=0038 ir=STORE     arg=          0 tos=          0 nos=          0 sp=CFFF rp=E001 flags=zncvieint mode=main      input=-- STORE
+  tick=00092 state=FETCH_OPCODE         pc=0039 ir=RET       arg=          0 tos=          0 nos=          0 sp=CFFF rp=E001 flags=zncvieint mode=main      input=-- instr_addr=56
+  tick=00093 state=MEM_READ             pc=0039 ir=RET       arg=          0 tos=          0 nos=          0 sp=CFFF rp=E001 flags=zncvieint mode=main      input=-- rp=E001
+  tick=00094 state=EXECUTE              pc=0068 ir=RET       arg=          0 tos=          0 nos=          0 sp=CFFF rp=E000 flags=zncvieint mode=main      input=-- RET
+  tick=00095 state=FETCH_OPCODE         pc=0069 ir=PUSHI32   arg=          0 tos=          0 nos=          0 sp=CFFF rp=E000 flags=zncvieint mode=main      input=-- instr_addr=104
+  tick=00096 state=FETCH_ARGUMENT       pc=006D ir=PUSHI32   arg=          6 tos=          0 nos=          0 sp=CFFF rp=E000 flags=zncvieint mode=main      input=-- PUSHI32 6
+  tick=00097 state=EXECUTE              pc=006D ir=PUSHI32   arg=          6 tos=          6 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- PUSHI32
+  tick=00098 state=FETCH_OPCODE         pc=006E ir=LOAD      arg=          0 tos=          6 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- instr_addr=109
+  tick=00099 state=MEM_READ             pc=006E ir=LOAD      arg=          0 tos=          6 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- addr=6
+  tick=00100 state=WRITEBACK            pc=006E ir=LOAD      arg=          0 tos=          8 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- LOAD
+  tick=00101 state=FETCH_OPCODE         pc=006F ir=PUSHI32   arg=          0 tos=          8 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- instr_addr=110
+  tick=00102 state=FETCH_ARGUMENT       pc=0073 ir=PUSHI32   arg=         48 tos=          8 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- PUSHI32 48
+  tick=00103 state=EXECUTE              pc=0073 ir=PUSHI32   arg=         48 tos=         48 nos=          8 sp=D001 rp=E000 flags=zncvieint mode=main      input=-- PUSHI32
+  tick=00104 state=FETCH_OPCODE         pc=0074 ir=ADD       arg=          0 tos=         48 nos=          8 sp=D001 rp=E000 flags=zncvieint mode=main      input=-- instr_addr=115
+  tick=00105 state=EXECUTE              pc=0074 ir=ADD       arg=          0 tos=         56 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- ADD
+  tick=00106 state=FETCH_OPCODE         pc=0075 ir=STOREA    arg=          0 tos=         56 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- instr_addr=116
+  tick=00107 state=FETCH_ARGUMENT       pc=0077 ir=STOREA    arg=      65282 tos=         56 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- STOREA 0xFF02
+  tick=00108 state=EXECUTE              pc=0077 ir=STOREA    arg=      65282 tos=          0 nos=          0 sp=CFFF rp=E000 flags=zncvieint mode=main      input=-- STOREA
+  tick=00109 state=FETCH_OPCODE         pc=0078 ir=PUSHI32   arg=          0 tos=          0 nos=          0 sp=CFFF rp=E000 flags=zncvieint mode=main      input=-- instr_addr=119
+  tick=00110 state=FETCH_ARGUMENT       pc=007C ir=PUSHI32   arg=         58 tos=          0 nos=          0 sp=CFFF rp=E000 flags=zncvieint mode=main      input=-- PUSHI32 58
+  tick=00111 state=EXECUTE              pc=007C ir=PUSHI32   arg=         58 tos=         58 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- PUSHI32
+  tick=00112 state=FETCH_OPCODE         pc=007D ir=STOREA    arg=          0 tos=         58 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- instr_addr=124
+  tick=00113 state=FETCH_ARGUMENT       pc=007F ir=STOREA    arg=      65282 tos=         58 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- STOREA 0xFF02
+  tick=00114 state=EXECUTE              pc=007F ir=STOREA    arg=      65282 tos=          0 nos=          0 sp=CFFF rp=E000 flags=zncvieint mode=main      input=-- STOREA
+  tick=00115 state=FETCH_OPCODE         pc=0080 ir=PUSHI32   arg=          0 tos=          0 nos=          0 sp=CFFF rp=E000 flags=zncvieint mode=main      input=-- instr_addr=127
+  tick=00116 state=FETCH_ARGUMENT       pc=0084 ir=PUSHI32   arg=          7 tos=          0 nos=          0 sp=CFFF rp=E000 flags=zncvieint mode=main      input=-- PUSHI32 7
+  tick=00117 state=EXECUTE              pc=0084 ir=PUSHI32   arg=          7 tos=          7 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- PUSHI32
+  tick=00118 state=FETCH_OPCODE         pc=0085 ir=LOAD      arg=          0 tos=          7 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- instr_addr=132
+  tick=00119 state=MEM_READ             pc=0085 ir=LOAD      arg=          0 tos=          7 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- addr=7
+  tick=00120 state=WRITEBACK            pc=0085 ir=LOAD      arg=          0 tos=          7 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- LOAD
+  tick=00121 state=FETCH_OPCODE         pc=0086 ir=PUSHI32   arg=          0 tos=          7 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- instr_addr=133
+  tick=00122 state=FETCH_ARGUMENT       pc=008A ir=PUSHI32   arg=         48 tos=          7 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- PUSHI32 48
+  tick=00123 state=EXECUTE              pc=008A ir=PUSHI32   arg=         48 tos=         48 nos=          7 sp=D001 rp=E000 flags=zncvieint mode=main      input=-- PUSHI32
+  tick=00124 state=FETCH_OPCODE         pc=008B ir=ADD       arg=          0 tos=         48 nos=          7 sp=D001 rp=E000 flags=zncvieint mode=main      input=-- instr_addr=138
+  tick=00125 state=EXECUTE              pc=008B ir=ADD       arg=          0 tos=         55 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- ADD
+  tick=00126 state=FETCH_OPCODE         pc=008C ir=STOREA    arg=          0 tos=         55 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- instr_addr=139
+  tick=00127 state=FETCH_ARGUMENT       pc=008E ir=STOREA    arg=      65282 tos=         55 nos=          0 sp=D000 rp=E000 flags=zncvieint mode=main      input=-- STOREA 0xFF02
+  tick=00128 state=EXECUTE              pc=008E ir=STOREA    arg=      65282 tos=          0 nos=          0 sp=CFFF rp=E000 flags=zncvieint mode=main      input=-- STOREA
+  tick=00129 state=FETCH_OPCODE         pc=008F ir=RET       arg=          0 tos=          0 nos=          0 sp=CFFF rp=E000 flags=zncvieint mode=main      input=-- instr_addr=142
+  tick=00130 state=MEM_READ             pc=008F ir=RET       arg=          0 tos=          0 nos=          0 sp=CFFF rp=E000 flags=zncvieint mode=main      input=-- rp=E000
+  tick=00131 state=EXECUTE              pc=0003 ir=RET       arg=          0 tos=          0 nos=          0 sp=CFFF rp=DFFF flags=zncvieint mode=main      input=-- RET
+  tick=00132 state=FETCH_OPCODE         pc=0004 ir=HALT      arg=          0 tos=          0 nos=          0 sp=CFFF rp=DFFF flags=zncvieint mode=main      input=-- instr_addr=3
+  tick=00133 state=EXECUTE              pc=0004 ir=HALT      arg=          0 tos=          0 nos=          0 sp=CFFF rp=DFFF flags=zncvieint mode=main      input=-- HALT

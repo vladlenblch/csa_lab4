@@ -15,6 +15,9 @@ INPUT_ACK_ADDR = 0xFF04
 FETCH_OPCODE = "FETCH_OPCODE"
 FETCH_ARGUMENT = "FETCH_ARGUMENT"
 EXECUTE = "EXECUTE"
+MEM_READ = "MEM_READ"
+WRITEBACK = "WRITEBACK"
+FETCH_PUSHN_VALUE = "FETCH_PUSHN_VALUE"
 EXECUTE_PUSHN_VALUE = "EXECUTE_PUSHN_VALUE"
 INTERRUPT = "INTERRUPT"
 
@@ -156,6 +159,10 @@ class DataPath:
     def signal_return_peek(self):
         return self._peek_return()
 
+    def signal_return_read(self):
+        self.read_data = isa.word_to_signed(self._peek_return())
+        return self.read_data
+
     def signal_data_to_return(self):
         self._push_return(self._pop_data())
 
@@ -177,9 +184,15 @@ class DataPath:
         value = self.signal_mem_read(address)
         self.signal_stack_replace_tos(value)
 
+    def signal_load_writeback(self):
+        self.signal_stack_replace_tos(self.read_data)
+
     def signal_loada(self, address):
         value = self.signal_mem_read(address)
         self.signal_stack_push(value)
+
+    def signal_loada_writeback(self):
+        self.signal_stack_push(self.read_data)
 
     def signal_store(self):
         address = self.tos
@@ -198,6 +211,20 @@ class DataPath:
         self.alu_result = result
         self._push_data(result)
         self.signal_latch_flags(result, carry, overflow)
+
+    def signal_memory_alu_writeback(self, alu_op):
+        a = self._pop_data()
+        result, carry, overflow = self.signal_alu(alu_op, a, self.read_data)
+        self.alu_result = result
+        self._push_data(result)
+        self.signal_latch_flags(result, carry, overflow)
+
+    def signal_return_to_data_writeback(self):
+        self._pop_return()
+        self._push_data(self.read_data)
+
+    def signal_return_peek_to_data_writeback(self):
+        self._push_data(self.read_data)
 
     def signal_latch_flags(self, result=None, carry=0, overflow=0, flags_ctrl="ALU_FLAGS"):
         if flags_ctrl == "ALU_FLAGS":
@@ -318,7 +345,10 @@ class ControlUnit:
         if self.state == FETCH_OPCODE:
             self.fetch_address = self.pc
             self.signal_latch_ir()
-            self.state = FETCH_ARGUMENT
+            if isa.instruction_format(self.ir) == isa.FORMAT_OP:
+                self.state = EXECUTE
+            else:
+                self.state = FETCH_ARGUMENT
             self.tick(FETCH_OPCODE, f"instr_addr={self.fetch_address}")
             return
 
@@ -326,6 +356,20 @@ class ControlUnit:
             self.signal_latch_arg()
             self.state = EXECUTE
             self.tick(FETCH_ARGUMENT, self.current_instruction_mnemonic())
+            return
+
+        if self.state == MEM_READ:
+            self.signal_mem_read_stage()
+            return
+
+        if self.state == WRITEBACK:
+            self.signal_writeback_stage()
+            return
+
+        if self.state == FETCH_PUSHN_VALUE:
+            self.signal_pushn_latch_value()
+            self.state = EXECUTE_PUSHN_VALUE
+            self.tick(FETCH_PUSHN_VALUE, f"value={self.arg}")
             return
 
         if self.state == EXECUTE_PUSHN_VALUE:
@@ -427,6 +471,63 @@ class ControlUnit:
     def signal_finish_execute(self):
         self.state = FETCH_OPCODE
 
+    def signal_mem_read_stage(self):
+        opcode = self.ir
+
+        if opcode is Opcode.LOAD:
+            self.data_path.signal_mem_read(self.data_path.tos)
+            self.state = WRITEBACK
+            self.tick(MEM_READ, f"addr={self.data_path.tos}")
+            return
+        if opcode in {Opcode.LOADA, Opcode.ADDM, Opcode.MULM}:
+            self.data_path.signal_mem_read(self.arg)
+            self.state = WRITEBACK
+            self.tick(MEM_READ, f"addr={self.arg}")
+            return
+        if opcode in {Opcode.RET, Opcode.FROMR, Opcode.RPEEK, Opcode.IRET}:
+            self.data_path.signal_return_read()
+            self.state = WRITEBACK
+            self.tick(MEM_READ, f"rp={self.data_path.rp:04X}")
+            return
+
+        raise MachineError(f"opcode does not use MEM_READ: {opcode.mnemonic}")
+
+    def signal_writeback_stage(self):
+        opcode = self.ir
+        stage = WRITEBACK
+        detail = opcode.mnemonic
+
+        if opcode is Opcode.LOAD:
+            self.data_path.signal_load_writeback()
+        elif opcode is Opcode.LOADA:
+            self.data_path.signal_loada_writeback()
+        elif opcode is Opcode.ADDM:
+            self.data_path.signal_memory_alu_writeback(Opcode.ADD)
+            stage = EXECUTE
+        elif opcode is Opcode.MULM:
+            self.data_path.signal_memory_alu_writeback(Opcode.MUL)
+            stage = EXECUTE
+        elif opcode is Opcode.RET:
+            ret_addr = self.data_path.read_data
+            self.data_path.signal_return_pop()
+            self.signal_latch_pc(ret_addr)
+            stage = EXECUTE
+        elif opcode is Opcode.FROMR:
+            self.data_path.signal_return_to_data_writeback()
+        elif opcode is Opcode.RPEEK:
+            self.data_path.signal_return_peek_to_data_writeback()
+        elif opcode is Opcode.IRET:
+            ret_addr = self.data_path.read_data
+            self.data_path.signal_return_pop()
+            self.data_path.signal_latch_flags(flags_ctrl="CLEAR_INT")
+            self.signal_latch_pc(ret_addr)
+            stage = EXECUTE
+        else:
+            raise MachineError(f"opcode does not use WRITEBACK: {opcode.mnemonic}")
+
+        self.signal_finish_execute()
+        self.tick(stage, detail)
+
     def decode_and_execute(self):
         opcode = self.ir
         detail = opcode.mnemonic
@@ -466,17 +567,25 @@ class ControlUnit:
         elif opcode is Opcode.OVER:
             self.data_path.signal_stack_over()
         elif opcode is Opcode.LOAD:
-            self.data_path.signal_load()
+            self.state = MEM_READ
+            self.signal_mem_read_stage()
+            return
         elif opcode is Opcode.LOADA:
-            self.data_path.signal_loada(self.arg)
+            self.state = MEM_READ
+            self.signal_mem_read_stage()
+            return
         elif opcode is Opcode.STORE:
             self.data_path.signal_store()
         elif opcode is Opcode.STOREA:
             self.data_path.signal_storea(self.arg)
         elif opcode is Opcode.ADDM:
-            self.data_path.signal_memory_alu(Opcode.ADD, self.arg)
+            self.state = MEM_READ
+            self.signal_mem_read_stage()
+            return
         elif opcode is Opcode.MULM:
-            self.data_path.signal_memory_alu(Opcode.MUL, self.arg)
+            self.state = MEM_READ
+            self.signal_mem_read_stage()
+            return
         elif opcode is Opcode.JMP:
             self.signal_latch_pc(self.pc + self.arg)
         elif opcode is Opcode.JZ:
@@ -494,20 +603,27 @@ class ControlUnit:
             self.signal_latch_pc(target)
             self.data_path.signal_stack_drop()
         elif opcode is Opcode.RET:
-            self.signal_latch_pc(self.data_path.signal_return_pop())
+            self.state = MEM_READ
+            self.signal_mem_read_stage()
+            return
         elif opcode is Opcode.TOR:
             self.data_path.signal_data_to_return()
         elif opcode is Opcode.FROMR:
-            self.data_path.signal_return_to_data()
+            self.state = MEM_READ
+            self.signal_mem_read_stage()
+            return
         elif opcode is Opcode.RPEEK:
-            self.data_path.signal_return_peek_to_data()
+            self.state = MEM_READ
+            self.signal_mem_read_stage()
+            return
         elif opcode is Opcode.EI:
             self.data_path.signal_latch_flags(flags_ctrl="SET_IE")
         elif opcode is Opcode.DI:
             self.data_path.signal_latch_flags(flags_ctrl="CLEAR_IE")
         elif opcode is Opcode.IRET:
-            self.data_path.signal_latch_flags(flags_ctrl="CLEAR_INT")
-            self.signal_latch_pc(self.data_path.signal_return_pop())
+            self.state = MEM_READ
+            self.signal_mem_read_stage()
+            return
         elif opcode is Opcode.GET_CARRY:
             self.data_path.signal_stack_push(self.data_path.flags["C"])
         else:
@@ -519,18 +635,22 @@ class ControlUnit:
     def signal_pushn_start(self):
         self.pushn_remaining = self.arg
         if self.pushn_remaining:
-            self.state = EXECUTE_PUSHN_VALUE
+            self.state = FETCH_PUSHN_VALUE
         else:
             self.signal_finish_execute()
 
-    def signal_pushn_push_value(self):
+    def signal_pushn_latch_value(self):
         value = isa.decode_i32(self.read_command_bytes(isa.WORD_BYTES))
         self.arg = value
-        self.data_path.signal_stack_push(value)
+
+    def signal_pushn_push_value(self):
+        self.data_path.signal_stack_push(self.arg)
         self.pushn_remaining -= 1
 
         if self.pushn_remaining == 0:
             self.signal_finish_execute()
+        else:
+            self.state = FETCH_PUSHN_VALUE
 
     def format_state(self, stage, detail):
         dp = self.data_path
