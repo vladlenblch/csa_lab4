@@ -29,7 +29,7 @@ jobs:
         run: |
           python -m compileall \
             isa.py translator.py machine.py \
-            golden/test_golden.py
+            test_golden.py
 
       - name: Test
-        run: python -m unittest discover -s golden -v
+        run: python -m unittest test_golden -v

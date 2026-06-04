@@ -266,6 +266,9 @@ class Translator:
             if value == "'":
                 pos = self._compile_execution_token(tokens, pos + 1)
                 continue
+            if value == "pushn":
+                pos = self._compile_pushn(tokens, pos + 1, token["term"])
+                continue
 
             self._compile_word(value, token)
             pos += 1
@@ -290,6 +293,25 @@ class Translator:
             self.word_labels[name] = self._word_label(name)
         self.emit_address(self.word_labels[name])
         return pos + 1
+
+    def _compile_pushn(self, tokens, pos, term):
+        count_token = _require_token(tokens, pos, "pushn count")
+        if not is_integer(count_token["value"]):
+            raise TranslationError("pushn count must be integer")
+
+        count = int(count_token["value"])
+        if count < 0:
+            raise TranslationError("pushn count must be non-negative")
+
+        values = []
+        for offset in range(count):
+            value_token = _require_token(tokens, pos + 1 + offset, "pushn value")
+            if not is_integer(value_token["value"]):
+                raise TranslationError("pushn value must be integer")
+            values.append(int(value_token["value"]))
+
+        self.emit(isa.pushn(values, term=term))
+        return pos + 1 + count
 
     def _compile_if(self, tokens, pos):
         false_label = self.new_label("if_false")
@@ -403,6 +425,7 @@ class Translator:
             "ei": Opcode.EI,
             "di": Opcode.DI,
             "iret": Opcode.IRET,
+            "get-carry": Opcode.GET_CARRY,
             "tor": Opcode.TOR,
             "fromr": Opcode.FROMR,
             "rpeek": Opcode.RPEEK,

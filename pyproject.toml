@@ -21,7 +21,7 @@ files = [
     "isa.py",
     "translator.py",
     "machine.py",
-    "golden/test_golden.py",
+    "test_golden.py",
 ]
 ignore_missing_imports = true
 warn_redundant_casts = true
@@ -29,4 +29,4 @@ warn_unused_configs = true
 warn_unused_ignores = true
 
 [tool.csa_lab4]
-test-command = "python -m unittest discover -s golden -v"
+test-command = "python -m unittest test_golden -v"

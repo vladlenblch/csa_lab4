@@ -42,15 +42,16 @@ class Opcode(IntEnum):
     EI = 0x17
     DI = 0x18
     IRET = 0x19
-    LOADA = 0x1A
-    STOREA = 0x1B
-    ADDM = 0x1C
-    MULM = 0x1D
-    JMP = 0x1E
-    JZ = 0x1F
-    CALL = 0x20
-    PUSHI32 = 0x21
-    PUSHN = 0x22
+    GET_CARRY = 0x1A
+    LOADA = 0x1B
+    STOREA = 0x1C
+    ADDM = 0x1D
+    MULM = 0x1E
+    JMP = 0x1F
+    JZ = 0x20
+    CALL = 0x21
+    PUSHI32 = 0x22
+    PUSHN = 0x23
 
     @property
     def mnemonic(self):
@@ -96,6 +97,7 @@ opcode_to_format = {
     Opcode.EI: FORMAT_OP,
     Opcode.DI: FORMAT_OP,
     Opcode.IRET: FORMAT_OP,
+    Opcode.GET_CARRY: FORMAT_OP,
     Opcode.LOADA: FORMAT_U16,
     Opcode.STOREA: FORMAT_U16,
     Opcode.ADDM: FORMAT_U16,

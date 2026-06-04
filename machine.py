@@ -508,6 +508,8 @@ class ControlUnit:
         elif opcode is Opcode.IRET:
             self.data_path.signal_latch_flags(flags_ctrl="CLEAR_INT")
             self.signal_latch_pc(self.data_path.signal_return_pop())
+        elif opcode is Opcode.GET_CARRY:
+            self.data_path.signal_stack_push(self.data_path.flags["C"])
         else:
             raise MachineError(f"unsupported opcode in first machine version: {opcode.mnemonic}")
 
@@ -538,8 +540,8 @@ class ControlUnit:
         input_state = f"input={dp.input_char:02X}" if dp.input_ready else "input=--"
         return (
             f"tick={self._tick:05d} state={stage:<20} pc={self.pc:04X} "
-            f"ir={ir:<7} arg={self.arg:>11} tos={dp.tos:>11} nos={dp.nos:>11} "
-            f"sp={dp.sp:04X} rp={dp.rp:04X} flags={flags} mode={mode} {input_state} {detail}"
+            f"ir={ir:<9} arg={self.arg:>11} tos={dp.tos:>11} nos={dp.nos:>11} "
+            f"sp={dp.sp:04X} rp={dp.rp:04X} flags={flags} mode={mode:<9} {input_state} {detail}"
         )
 
     def __repr__(self):
