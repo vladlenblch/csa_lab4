@@ -16,37 +16,49 @@ FORMAT_PUSHN = "pushn"
 
 class Opcode(IntEnum):
     HALT = 0x00
-    DUP = 0x01
-    DROP = 0x02
-    SWAP = 0x03
-    OVER = 0x04
-    LOAD = 0x05
-    STORE = 0x06
-    ADD = 0x07
-    SUB = 0x08
-    MUL = 0x09
-    DIV = 0x0A
-    MOD = 0x0B
-    EQ = 0x0C
-    LT = 0x0D
-    GT = 0x0E
-    RET = 0x0F
-    CALLXT = 0x10
-    TOR = 0x11
-    FROMR = 0x12
-    RPEEK = 0x13
-    EI = 0x14
-    DI = 0x15
-    IRET = 0x16
-    GET_CARRY = 0x17
-    LOADA = 0x18
-    STOREA = 0x19
-    ADDM = 0x1A
-    JMP = 0x1B
-    JZ = 0x1C
-    CALL = 0x1D
-    PUSHI32 = 0x1E
-    PUSHN = 0x1F
+    ADD = 0x01
+    SUB = 0x02
+    MUL = 0x03
+    DIV = 0x04
+    MOD = 0x05
+    EQ = 0x06
+    LT = 0x07
+    GT = 0x08
+    MOV_TOS_NOS = 0x09
+    MOV_NOS_TOS = 0x0A
+    MOV_TOS_TMP = 0x0B
+    MOV_TMP_TOS = 0x0C
+    MOV_TMP_NOS = 0x0D
+    MOV_NOS_TMP = 0x0E
+    MOV_TOS_MDR = 0x0F
+    MOV_NOS_MDR = 0x10
+    SP_INC = 0x11
+    SP_DEC = 0x12
+    RP_INC = 0x13
+    RP_DEC = 0x14
+    LOAD = 0x15
+    LOAD_SP = 0x16
+    LOAD_SP_M1 = 0x17
+    LOAD_RP = 0x18
+    STORE = 0x19
+    STORE_SP_TOS = 0x1A
+    STORE_SP_M1_TOS = 0x1B
+    STORE_SP_M1_NOS = 0x1C
+    STORE_RP_TOS = 0x1D
+    EI = 0x1E
+    DI = 0x1F
+    IRET = 0x20
+    GET_CARRY = 0x21
+    CALLXT = 0x22
+    RET = 0x23
+    LOADA = 0x24
+    STOREA = 0x25
+    ADDM = 0x26
+    JMP = 0x27
+    JZ = 0x28
+    CALL = 0x29
+    LDI = 0x2A
+    PUSHN = 0x2B
 
     @property
     def mnemonic(self):
@@ -63,12 +75,6 @@ class Opcode(IntEnum):
 
 opcode_to_format = {
     Opcode.HALT: FORMAT_OP,
-    Opcode.DUP: FORMAT_OP,
-    Opcode.DROP: FORMAT_OP,
-    Opcode.SWAP: FORMAT_OP,
-    Opcode.OVER: FORMAT_OP,
-    Opcode.LOAD: FORMAT_OP,
-    Opcode.STORE: FORMAT_OP,
     Opcode.ADD: FORMAT_OP,
     Opcode.SUB: FORMAT_OP,
     Opcode.MUL: FORMAT_OP,
@@ -77,22 +83,40 @@ opcode_to_format = {
     Opcode.EQ: FORMAT_OP,
     Opcode.LT: FORMAT_OP,
     Opcode.GT: FORMAT_OP,
-    Opcode.RET: FORMAT_OP,
-    Opcode.CALLXT: FORMAT_OP,
-    Opcode.TOR: FORMAT_OP,
-    Opcode.FROMR: FORMAT_OP,
-    Opcode.RPEEK: FORMAT_OP,
+    Opcode.MOV_TOS_NOS: FORMAT_OP,
+    Opcode.MOV_NOS_TOS: FORMAT_OP,
+    Opcode.MOV_TOS_TMP: FORMAT_OP,
+    Opcode.MOV_TMP_TOS: FORMAT_OP,
+    Opcode.MOV_TMP_NOS: FORMAT_OP,
+    Opcode.MOV_NOS_TMP: FORMAT_OP,
+    Opcode.MOV_TOS_MDR: FORMAT_OP,
+    Opcode.MOV_NOS_MDR: FORMAT_OP,
+    Opcode.SP_INC: FORMAT_OP,
+    Opcode.SP_DEC: FORMAT_OP,
+    Opcode.RP_INC: FORMAT_OP,
+    Opcode.RP_DEC: FORMAT_OP,
+    Opcode.LOAD: FORMAT_OP,
+    Opcode.LOAD_SP: FORMAT_OP,
+    Opcode.LOAD_SP_M1: FORMAT_OP,
+    Opcode.LOAD_RP: FORMAT_OP,
+    Opcode.STORE: FORMAT_OP,
+    Opcode.STORE_SP_TOS: FORMAT_OP,
+    Opcode.STORE_SP_M1_TOS: FORMAT_OP,
+    Opcode.STORE_SP_M1_NOS: FORMAT_OP,
+    Opcode.STORE_RP_TOS: FORMAT_OP,
     Opcode.EI: FORMAT_OP,
     Opcode.DI: FORMAT_OP,
     Opcode.IRET: FORMAT_OP,
     Opcode.GET_CARRY: FORMAT_OP,
+    Opcode.CALLXT: FORMAT_OP,
+    Opcode.RET: FORMAT_OP,
     Opcode.LOADA: FORMAT_U16,
     Opcode.STOREA: FORMAT_U16,
     Opcode.ADDM: FORMAT_U16,
     Opcode.JMP: FORMAT_I16,
     Opcode.JZ: FORMAT_I16,
     Opcode.CALL: FORMAT_I16,
-    Opcode.PUSHI32: FORMAT_I32,
+    Opcode.LDI: FORMAT_I32,
     Opcode.PUSHN: FORMAT_PUSHN,
 }
 
