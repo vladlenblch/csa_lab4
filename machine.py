@@ -345,12 +345,7 @@ class ControlUnit:
 
     def interrupt_requested(self):
         flags = self.data_path.flags
-        return (
-            flags["IE"] == 1
-            and flags["INT"] == 0
-            and self.data_path.input_ready
-            and self.data_path.interrupt_safe
-        )
+        return flags["IE"] == 1 and flags["INT"] == 0 and self.data_path.input_ready and self.data_path.interrupt_safe
 
     def signal_latch_ir(self):
         opcode_byte = self.command_memory[self.pc]
@@ -561,6 +556,7 @@ class ControlUnit:
             f"sp={dp.sp:04X} rp={dp.rp:04X} tmp={dp.tmp:>11} mdr={dp.mdr:>11} "
             f"flags={flags} mode={mode:<9} {input_state}{detail_text}"
         )
+
 
 def _command_memory_from_code(code):
     if isinstance(code, (bytes, bytearray)):
